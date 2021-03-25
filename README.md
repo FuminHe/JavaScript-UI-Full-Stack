@@ -1,1 +1,1 @@
-# JavaScript-UI-Full-Stack
+# JavaScript/UI Full Stack
