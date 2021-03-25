@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 02 - Assignment</title>
+
+    <script>
+      function isReadonly() {
+        const checkboxes = document.getElementsByName("checkbox_read");
+
+        checkboxes.forEach((val) => {
+          const text_id = val.id + "_text";
+          if (val.checked) {
+            document.getElementById(text_id).readOnly = true;
+          } else {
+            document.getElementById(text_id).readOnly = false;
+          }
+        });
+      }
+
+      function displayCheck() {
+        const checkboxes = document.getElementsByName("checkbox_group");
+        document.getElementById("result").innerHTML = "Checked Elements: <br/>";
+
+        checkboxes.forEach((val) => {
+          if (val.checked) {
+            document.getElementById("result").innerHTML += val.value + "<br/>";
+          }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Use a checkbox to control the readonly property of a textbox. 
+        If checkbox is check make the textbox readonly and
+        If the check is unchecked make the textbox editable. -->
+    <div>
+      <input
+        type="checkbox"
+        id="checkbox_1"
+        name="checkbox_read"
+        onclick="isReadonly()"
+        checked
+      />
+      <input
+        type="textbox"
+        id="checkbox_1_text"
+        value="A default text"
+        readonly
+      />
+      <br />
+      <input
+        type="checkbox"
+        id="checkbox_2"
+        name="checkbox_read"
+        onclick="isReadonly()"
+      />
+      <input type="textbox" id="checkbox_2_text" />
+    </div>
+    <hr />
+    <!-- Create 2 groups of checkboxes 
+        and display all the values of the checkboxes checked by the user. 
+        Same scenario as we did with radio input types in the class. -->
+    <div>
+      Group 1:<br />
+      <input type="checkbox" name="checkbox_group" value="Group 1_1" />Group 1_1
+      <br />
+      <input type="checkbox" name="checkbox_group" value="Group 1_2" />Group 1_2
+      <br />
+      <br />
+      Group 2:<br />
+      <input type="checkbox" name="checkbox_group" value="Group 2_1" />Group 2_1
+      <br />
+      <input type="checkbox" name="checkbox_group" value="Group 2_2" />Group 2_2
+
+      <br />
+      <br />
+      <button onclick="displayCheck()">click</button>
+      <br />
+      <label id="result"></label>
+    </div>
+  </body>
+</html>
