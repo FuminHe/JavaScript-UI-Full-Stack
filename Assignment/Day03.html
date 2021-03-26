@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 03 - Assignment</title>
+    <script>
+      function getProperSize(size) {
+        // console.log(size);
+        const unitName = ["bytes", "KB", "MB", "GB", "TB"];
+        const step = 1024;
+
+        // kiloBytes = step; // 1 KB = 1024 bytes
+        // megaBytes = step * step; // 1 MB = 1024 KB
+        // gigaBytes = step * step * step; // 1 GB = 1024 MB
+        // teraBytes = step * step * step * step; // 1 TB = 1024 GB
+        const unitIndex = Math.floor(Math.log(size) / Math.log(step));
+
+        const result =
+          (size / Math.pow(step, unitIndex)).toFixed(2) +
+          " " +
+          unitName[unitIndex];
+
+        return result;
+      }
+
+      function showFileDetails(event) {
+        const files = event.target.files;
+
+        let output = [];
+        for (let i = 0; i < files.length; i++) {
+          f = files[i];
+          output.push(
+            `<li><strong>`,
+            f.name,
+            `</strong>(`,
+            f.type || "n//a",
+            ") -",
+            getProperSize(f.size),
+            ", last modified:",
+            f.lastModifiedDate
+              ? f.lastModifiedDate.toLocaleDateString()
+              : "n//a",
+            "</li>"
+          );
+        }
+
+        document.getElementById("files_output").innerHTML =
+          "<ul>" + output.join(" ") + "</ul>";
+      }
+    </script>
+  </head>
+  <body>
+    <!-- transfer byte to proper units -->
+    <div>
+      <input type="file" id="files" multiple />
+      <output id="files_output"></output>
+
+      <script>
+        document
+          .getElementById("files")
+          .addEventListener("change", showFileDetails, false);
+      </script>
+    </div>
+  </body>
+</html>
