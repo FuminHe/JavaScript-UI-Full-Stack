@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 04 - Assignment</title>
+  </head>
+  <style>
+    #drop_zone {
+      position: relative;
+      border: 1px solid red;
+      width: 250px;
+      height: 150px;
+      line-height: 30px;
+      text-align: center;
+    }
+    #upload_file {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #thumbnail img {
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+    }
+
+    canvas {
+      border: 1px solid red;
+    }
+  </style>
+  <script>
+    function dropHandler(ev) {
+      console.log("File(s) dropped");
+
+      // Prevent default behavior (Prevent file from being opened)
+      ev.preventDefault();
+
+      showThumbnail(ev.dataTransfer.files);
+      // console.log(ev.dataTransfer.files);
+    }
+
+    function dragOverHandler(ev) {
+      // Prevent default behavior (Prevent file from being opened)
+      ev.preventDefault();
+    }
+
+    function showThumbnail(files) {
+      console.log(files);
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const imageType = /image.*/;
+        if (!file.type.match(imageType)) {
+          console.log("Not an Image");
+          continue;
+        }
+
+        let image = document.createElement("img");
+        // image.classList.add("")
+        let thumbnail = document.getElementById("thumbnail");
+        image.file = file;
+        thumbnail.appendChild(image);
+
+        var reader = new FileReader();
+        reader.onload = (function (aImg) {
+          return function (e) {
+            aImg.src = e.target.result;
+          };
+        })(image);
+        var ret = reader.readAsDataURL(file);
+        var canvas = document.createElement("canvas");
+        ctx = canvas.getContext("2d");
+        image.onload = function () {
+          ctx.drawImage(image, 100, 100);
+        };
+      }
+    }
+  </script>
+  <body>
+    <!-- drag and drop file from desktop -->
+    <div
+      id="drop_zone"
+      ondrop="dropHandler(event);"
+      ondragover="dragOverHandler(event);"
+    >
+      Upload Files....
+      <input type="file" id="upload_file" multiple />
+      <script>
+        document
+          .getElementById("upload_file")
+          .addEventListener(
+            "change",
+            (event) => showThumbnail(event.target.files),
+            false
+          );
+      </script>
+    </div>
+    <div id="thumbnail"></div>
+  </body>
+</html>
