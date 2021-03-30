@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 05 - Bouncing Balls</title>
+    <link rel="stylesheet" href="Day05.css" />
+  </head>
+  <body>
+    <!-- Add 300 more bouncing balls. -->
+    <canvas id="bouncing_balls"></canvas>
+    <script src="Day05.js"></script>
+
+    <!-- Use a range to control the image size -->
+    <hr />
+    <form>
+      <label for="size_range">Image size:</label>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        id="size_range"
+        value="100"
+        oninput="thisSize.value = size_range.value;image.width =
+      (size_range.value/100)*300; image.height =
+      (size_range.value/100)*200;"
+      />
+      <output name="thisSize" for="size_range">100</output><span>%</span>
+      <br />
+      <img id="image" src="1.jpg" width="300px" height="200px" />
+    </form>
+
+    <!-- Put a submenu in the menu we created -->
+    <ul class="navigation">
+      <li><a href="#">Home</a></li>
+      <li>
+        <a href="#">About</a>
+        <ul class="sub_nav">
+          <li><a href="#">sub nav 1</a></li>
+          <li><a href="#">sub nav 2</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </body>
+</html>
