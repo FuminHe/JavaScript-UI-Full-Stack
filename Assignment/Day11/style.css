@@ -1,0 +1,103 @@
+body {
+  padding: 40px;
+}
+.open-new {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.open-new:hover {
+  color: blue;
+}
+
+.active-link:active {
+  background-color: blueviolet;
+  color: whitesmoke;
+}
+
+.after-ex::after {
+  content: " - Add a after note";
+  background-color: violet;
+  color: white;
+}
+
+.before-ex::before {
+  content: "Add a before note - ";
+  background-color: violet;
+  color: white;
+}
+
+.first-child-ex p:first-child {
+  background-color: tomato;
+  color: white;
+}
+
+.first-letter-ex p::first-letter {
+  font-size: 200%;
+  color: #8a2be2;
+}
+
+.first-line-ex p::first-line {
+  background-color: royalblue;
+  color: whitesmoke;
+}
+
+.hover-ex {
+  border: 2px solid black;
+  padding: 10px;
+  width: 200px;
+  height: 100px;
+}
+.hover-ex:hover {
+  background-color: darkslategrey;
+  color: white;
+}
+
+.focus-ex {
+  border: 2px solid black;
+  padding: 10px;
+  width: 200px;
+  height: 100px;
+}
+.focus-ex:focus {
+  background-color: brown;
+  color: greenyellow;
+}
+
+.nth-child-ex div {
+  display: inline-block;
+}
+.nth-child-ex div div {
+  border: 2px solid black;
+  padding: 10px;
+  width: 200px;
+  height: 150px;
+}
+.nth-child-ex div div p:nth-child(2) {
+  color: red;
+}
+
+.nth-last-child-ex div {
+  display: inline-block;
+}
+.nth-last-child-ex div div {
+  border: 2px solid black;
+  padding: 10px;
+  width: 200px;
+  height: 150px;
+}
+.nth-last-child-ex div div p:nth-last-child(2) {
+  color: red;
+}
+
+.nth-of-type-ex p:nth-of-type(2) {
+  color: red;
+}
+
+.require-ex input:required {
+  background-color: salmon;
+}
+
+.even-p p:nth-child(even) {
+  background-color: red;
+  color: white;
+}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 11 - Assignment</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body onbeforeunload="return leaveConfirm()">
+    <!-- How will you open the link in a new window in <a> tag. -->
+    <a onclick="openNewWindow()" class="open-new">
+      Click to open Google in a new window
+    </a>
+
+    <hr />
+    <!-- :active to change the color of the active link -->
+    <h3>:active</h3>
+    <a onclick="openNewWindow()" class="open-new active-link">
+      A link becomes active when you click on it. Use ":active" to change the
+      "background-color" to be "blueviolet" and "color" to be white.
+    </a>
+
+    <hr />
+    <!-- ::after -->
+    <h3>::after</h3>
+    <div class="after-ex">
+      The "::after" selector inserts something after the content of each
+      selected element(s). Use the content property to specify the content to
+      insert.
+    </div>
+
+    <hr />
+    <!-- ::before -->
+    <h3>::before</h3>
+    <div class="before-ex">
+      Use the "::before" selector to insert something before the content.
+    </div>
+
+    <hr />
+    <!-- :first-child -->
+    <h3>:first-child</h3>
+    <span
+      >Select and style every element that is the first child of its
+      parent:</span
+    >
+    <div class="first-child-ex">
+      <p>
+        This P tage is the first child right after its parent (div). it can't
+        have other elements between div and p to show the
+        <strong>p:first-child</strong> style.
+      </p>
+      <p>This paragraph is not the first child of its parent(div).</p>
+    </div>
+
+    <hr />
+    <!-- ::first-letter -->
+    <h3>::first-letter</h3>
+    <div class="first-letter-ex">
+      Select and style the first letter of every selected element:
+      <p>Lorem ipsum dolor sit amet.</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique,
+        laborum.
+      </p>
+    </div>
+
+    <hr />
+    <!-- ::first-line -->
+    <h3>::first-line</h3>
+    <div class="first-line-ex">
+      Select and style the first line of every selected element:
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ducimus
+        veritatis aliquam sequi, minima quod odio, eum nisi eius nesciunt
+        nostrum. Quae sint adipisci suscipit possimus maxime quis earum tempore
+        eligendi saepe in, libero nulla quo voluptas quisquam itaque accusamus
+        nihil rem officiis minima iusto atque dolorum cum aut! Vero.
+      </p>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum nulla
+        perspiciatis dolore quos ipsam nisi ea iure nihil sit aperiam nesciunt,
+        excepturi quo similique asperiores consectetur non laborum explicabo
+        deserunt. Recusandae eligendi velit quod unde, incidunt aspernatur dicta
+        provident temporibus.
+      </p>
+    </div>
+
+    <hr />
+    <!-- :hover -->
+    <h3>:hover</h3>
+    <div class="hover-ex">
+      Select and style a element when you mouse over it.
+    </div>
+
+    <hr />
+    <!-- :focus -->
+    <h3>:focus</h3>
+    <p class="focus-ex" contenteditable="true">
+      Style the element when the user clicks or taps on it or selects it with
+      the keyboard's "Tab" key.
+    </p>
+
+    <hr />
+    <!-- :nth-child -->
+    <h3>:nth-child(n)</h3>
+    <div class="nth-child-ex">
+      The :nth-child(n) selector matches every element that is the nth child,
+      regardless of type, of its parent. n can be a number, a keyword, or a
+      formula.
+      <p>Example: change the color of second child: :nth-child(2)</p>
+      <div>
+        <div>
+          First div:
+          <p>First child of div1.</p>
+          <p>Second child of div1.</p>
+          <p>Third child of div1.</p>
+          <p>Forth child of div1.</p>
+        </div>
+        <div>
+          Second div:
+          <p>First child of div2.</p>
+          <p>Second child of div2.</p>
+          <p>Third child of div2.</p>
+          <p>Forth child of div2.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <!-- :nth-last-child(n) -->
+    <h3>:nth-last-child(n)</h3>
+    <div class="nth-last-child-ex">
+      The :nth-last-child(n) selector matches every element that is the nth
+      child, regardless of type, of its parent, counting from the last child.
+      <p>Example: change the color of second child: :nth-last-child(2)</p>
+      <div>
+        <div>
+          First div:
+          <p>First child of div1.</p>
+          <p>Second child of div1.</p>
+          <p>Third child of div1.</p>
+          <p>Forth child of div1.</p>
+        </div>
+        <div>
+          Second div:
+          <p>First child of div2.</p>
+          <p>Second child of div2.</p>
+          <p>Third child of div2.</p>
+          <p>Forth child of div2.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <!-- :nth-of-type(n) -->
+    <h3>:nth-of-type(n)</h3>
+    <div class="nth-of-type-ex">
+      The :nth-of-type(n) selector matches every element that is the nth child,
+      <strong>a particular type</strong> , of its parent.
+      <p>First p child of class "nth-of-type-ex".</p>
+      <!-- <div>First div child of class "nth-of-type-ex".</div> -->
+      <p>Second p child of class "nth-of-type-ex".</p>
+      <!-- <div>Second div child of class "nth-of-type-ex".</div> -->
+    </div>
+
+    <hr />
+    <!-- :required -->
+    <h3>:required</h3>
+    <div class="require-ex">
+      The :required selector selects form elements which are required:
+      <br />
+      <input type="text" value="This is required" required />
+      <input type="text" value="This is not required" />
+    </div>
+
+    <hr />
+    <!-- Make the even p tages fore color to be red -->
+    <h3>Make the even p tages fore color to be red:</h3>
+    <div class="even-p">
+      <p>1 - Lorem ipsum dolor sit amet.</p>
+      <p>2 - Lorem ipsum dolor sit amet.</p>
+      <p>3 - Lorem ipsum dolor sit amet.</p>
+      <p>4 - Lorem ipsum dolor sit amet.</p>
+      <p>5 - Lorem ipsum dolor sit amet.</p>
+      <p>6 - Lorem ipsum dolor sit amet.</p>
+    </div>
+
+    <hr />
+    <!-- Difference between CSS Psudo Elements and Psudo Classes. -->
+    <h3>Difference between CSS Psudo Elements and Psudo Classes.</h3>
+    <div>
+      1.A pseudo-class is a selector that selects elements that are in a
+      specific state, e.g. they are the first element of their type, or they are
+      being hovered over by the mouse pointer. They tend to act as if you had
+      applied a class to some part of your document, often helping you cut down
+      on excess classes in your markup, and giving you more flexible,
+      maintainable code.
+      <br />
+      2.Pseudo-elements behave in a similar way, however
+      <b>
+        they act as if you had added a whole new HTML element into the markup
+      </b>
+      , rather than applying a class to existing elements. Pseudo-elements start
+      with a double colon ::.
+    </div>
+  </body>
+
+  <script>
+    function openNewWindow() {
+      window.open("http://google.com", "", "width=400,height=400");
+    }
+    //Confirm dialog for tab or browser close.
+    function leaveConfirm() {
+      return "sure to leave the site?";
+    }
+  </script>
+</html>
