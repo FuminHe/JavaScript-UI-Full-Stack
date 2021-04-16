@@ -138,18 +138,30 @@ h4 {
     font-size: 1.2em;
   }
   .projects a {
-    grid-column: span 3 !important;
-    margin: 20px 0;
-    display: inline-block !important;
+    grid-column: span 2 !important;
+    width: max-content;
+    display: block !important;
   }
   .projects a:last-child {
     grid-column: span 2 !important;
   }
   .projects h4 {
-    font-size: 1rem;
-    /* display: inline; */
-    margin: 0;
-    width: 100px;
+    margin-top: 10px !important;
+  }
+  .projects a * {
+    max-width: 50% !important;
+  }
+  #skills li {
+    grid-column: span 2 !important;
+  }
+  #contact form {
+    max-width: 800px !important;
+  }
+  footer img {
+    width: 30px !important;
+  }
+  footer {
+    background-size: 20% !important;
   }
 }
 
