@@ -1,0 +1,66 @@
+html::before {
+  content: "";
+  background-image: url(background.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.2;
+}
+
+h1 {
+  text-align: center;
+}
+
+.mainContainer {
+  position: relative;
+  border: 1px solid black;
+  padding: 5% 15%;
+  display: block;
+}
+
+.toDoList {
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.flex {
+  border: 2px solid black;
+  border-radius: 5%;
+  height: 300px;
+  width: 40%;
+  padding: 20px 10px;
+  overflow: auto;
+}
+
+.date {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.input-box {
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 1px solid cornflowerblue;
+  background-color: transparent;
+  padding: 5px;
+  font-size: 1rem;
+}
+.input-box:focus {
+  outline: none !important;
+}
+
+.todo-line {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.todo-input-text {
+  flex-grow: 1;
+}
