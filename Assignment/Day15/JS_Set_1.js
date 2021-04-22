@@ -199,10 +199,11 @@ function removeNonASCII(str) {
 // console.log(removeNonASCII("äÄçÇéÉêPHP-MySQLöÖÐþúÚ"));
 
 // 13. convert the length of a given string in bytes.
-function strLenToBytes(str) {
-  const result = new Blob([str]).size;
-  return result;
-}
+//https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript
+// function strLenToBytes(str) {
+//   const result = new Blob([str]).size;
+//   return result;
+// }
 // console.log(strLenToBytes("Hello World")); ??
 
 // 14. replace the names of multiple
