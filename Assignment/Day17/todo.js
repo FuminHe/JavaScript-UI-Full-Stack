@@ -28,15 +28,6 @@ function createTodobox() {
   return todobox;
 }
 
-function createWindowClose() {
-  let close = document.createElement("i");
-  // <i class="fas fa-window-close"></i>
-  close.className = "fas fa-window-close fa-3x";
-  close.onclick = removeBlock;
-
-  return close;
-}
-
 function createTodotitle() {
   let p_todo = document.createElement("p");
   // p_todo.innerHTML =
@@ -121,7 +112,6 @@ function createNewBlock() {
   todobox.appendChild(todoline);
 
   date.appendChild(dateTxt);
-  date.appendChild(createWindowClose());
 
   todoline.appendChild(check);
   todoline.appendChild(inputtxt);
@@ -236,7 +226,6 @@ function showBlock(key, todoes) {
   let dateTxt = createDateTXT();
   dateTxt.value = todoes["time"];
   date.appendChild(dateTxt);
-  date.appendChild(createWindowClose());
 
   let todobox = createTodobox();
   let p_todo = createTodotitle();
@@ -295,16 +284,10 @@ function updateInputContent() {
 }
 
 function updateDate() {
-  const blockId = this.parentNode.id;
-  let obj = JSON.parse(localStorage.getItem(blockId));
-
-  obj.time = this.value;
-  localStorage.setItem(blockId, JSON.stringify(obj));
-}
-
-function removeBlock() {
   const blockId = this.parentNode.parentNode.id;
-  localStorage.removeItem(blockId);
+  let obj = JSON.parse(localStorage.getItem(blockId));
+  obj["time"] = this.value;
+  localStorage.setItem(blockId, JSON.stringify(obj));
 }
 
 function initializeHTML() {
