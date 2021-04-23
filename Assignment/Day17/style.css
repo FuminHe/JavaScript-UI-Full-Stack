@@ -11,39 +11,68 @@ html::before {
   left: 0px;
   opacity: 0.2;
 }
+.head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 h1 {
-  text-align: center;
+  margin-right: 1%;
+}
+
+.plus-icon {
+  /* color: white; */
+  color: cornflowerblue;
+  opacity: 0.8;
+  margin-left: 10px;
 }
 
 .mainContainer {
   position: relative;
-  border: 1px solid black;
-  padding: 5% 15%;
+  /* border: 1px solid black; */
+  padding: 5px 10%;
   display: block;
 }
 
 .toDoList {
-  /* border: 1px solid black; */
+  border: 2px solid lightblue;
+  border-radius: 5%;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 .flex {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   border-radius: 5%;
   height: 300px;
   width: 40%;
-  padding: 20px 10px;
+  padding: 20px 20px;
   overflow: auto;
+}
+.flex > p {
+  margin: 10px;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 .date {
   flex-grow: 1;
   width: 100%;
+  margin-left: 5%;
 }
 
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+input[type="checkbox"]:checked {
+  color: gainsboro;
+  background-color: hotpink;
+}
 .input-box {
   border-top: 0px;
   border-left: 0px;
@@ -60,7 +89,33 @@ h1 {
 .todo-line {
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .todo-input-text {
   flex-grow: 1;
+  align-self: flex-end;
+  font-size: 1.5rem;
+}
+
+.remove-icon {
+  padding: 5px;
+  margin-left: 5px;
+  color: gainsboro;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  border-radius: 10%;
+}
+.remove-icon:hover {
+  background-color: cadetblue;
+  color: azure;
+  opacity: 0.2;
+}
+
+.complete-input-text {
+  flex-grow: 1;
+  align-self: flex-end;
+  font-size: 1.5rem;
+  text-decoration: line-through;
 }
