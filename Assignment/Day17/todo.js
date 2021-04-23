@@ -21,6 +21,15 @@ function createDateTXT() {
   return dateTxt;
 }
 
+function createWindowClose() {
+  let close = document.createElement("i");
+  // <i class="fas fa-window-close"></i>
+  close.className = "fas fa-window-close fa-3x";
+  close.onclick = removeBlock;
+
+  return close;
+}
+
 function createTodobox() {
   let todobox = document.createElement("div");
   todobox.className = "toDo-box flex";
@@ -112,6 +121,7 @@ function createNewBlock() {
   todobox.appendChild(todoline);
 
   date.appendChild(dateTxt);
+  date.appendChild(createWindowClose());
 
   todoline.appendChild(check);
   todoline.appendChild(inputtxt);
@@ -226,6 +236,7 @@ function showBlock(key, todoes) {
   let dateTxt = createDateTXT();
   dateTxt.value = todoes["time"];
   date.appendChild(dateTxt);
+  date.appendChild(createWindowClose());
 
   let todobox = createTodobox();
   let p_todo = createTodotitle();
@@ -290,6 +301,14 @@ function updateDate() {
   localStorage.setItem(blockId, JSON.stringify(obj));
 }
 
+function removeBlock() {
+  const blockId = this.parentNode.parentNode.id;
+  localStorage.removeItem(blockId);
+
+  let block = document.getElementById(blockId);
+  block.remove();
+}
+
 function initializeHTML() {
   const toDoArrays = Object.keys(localStorage).filter(
     (keyName) => keyName.slice(0, 9) === "toDoList-"
@@ -298,11 +317,11 @@ function initializeHTML() {
   if (toDoArrays.length === 0) {
     createNewBlock();
   } else {
-    // toDoArrays.forEach((item) => {
-    //   showBlock(item, JSON.parse(localStorage.getItem(item)));
-    // });
-    for (let i = toDoArrays.length - 1; i >= 0; i--) {
-      showBlock(toDoArrays[i], JSON.parse(localStorage.getItem(toDoArrays[i])));
-    }
+    toDoArrays.forEach((item) => {
+      showBlock(item, JSON.parse(localStorage.getItem(item)));
+    });
+    // for (let i = toDoArrays.length - 1; i >= 0; i--) {
+    //   showBlock(toDoArrays[i], JSON.parse(localStorage.getItem(toDoArrays[i])));
+    // }
   }
 }
