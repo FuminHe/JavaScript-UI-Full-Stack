@@ -310,9 +310,9 @@ function removeBlock() {
 }
 
 function initializeHTML() {
-  const toDoArrays = Object.keys(localStorage).filter(
-    (keyName) => keyName.slice(0, 9) === "toDoList-"
-  );
+  let toDoArrays = Object.keys(localStorage)
+    .filter((keyName) => keyName.slice(0, 9) === "toDoList-")
+    .sort();
 
   if (toDoArrays.length === 0) {
     createNewBlock();
