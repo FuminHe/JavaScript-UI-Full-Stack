@@ -417,19 +417,64 @@ function remove_specified(arr, filter) {
 }
 // console.log(remove_specified([2, 1, 2, 3], [1, 2]));
 
-// 31. Write a JavaScript program to find all elements in a given array except for the first one. Return the whole array if the array's length is 1.
+// 31. find all elements in a given array except for the first one.
+// Return the whole array if the array's length is 1.
+function withoutFirst(A) {
+  if (A.length === 1) {
+    return A;
+  } else {
+    return A.slice(1);
+  }
+}
+// console.log(withoutFirst([1, 2, 3, 4]));
 
-// 32. Write a JavaScript program to get the sum of a given array, after mapping each element to a value using the provided function.
+// 32. get the sum of a given array,
+// after mapping each element to a value
+// using the provided function.
+const sumBy = (arr, fn) =>
+  arr
+    .map(typeof fn === "function" ? fn : (val) => val[fn])
+    .reduce((acc, val) => acc + val, 0);
 
-// 33. Write a JavaScript program to get a random number in the specified range.
+// console.log(sumBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o) => o.n));
+// console.log(sumBy([{ n: -4 }, { n: -2 }, { n: 8 }, { n: 6 }], "n"));
 
-// 34. Write a JavaScript program to get a random integer in the specified range.
+// 33. get a random number in the specified range.
+function getRandom(min, max) {
+  return Math.random() * (max - min) + min;
+}
+// console.log(getRandom(2, 6));
 
-// 35. Write a JavaScript program to get an array of given n random integers in the specified range.
+// 34. get a random integer in the specified range.
+function getRandomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+// console.log(getRandomInteger(2, 6));
 
-// 36. Write a JavaScript program to create a function that invokes each provided function with the arguments it receives and returns the results.
+// 35. get an array of given n random integers
+// in the specified range.
+function getRandomArray(min, max, n) {
+  // let result = [];
+  // for (let i = 0; i < n; i++) {
+  //   result.push(Math.floor(Math.random() * (max - min + 1)) + min);
+  // }
 
-// 37. Write a JavaScript program to get a sorted array of objects ordered by properties and orders.
+  return Array.from(
+    { length: n },
+    () => Math.floor(Math.random() * (max - min + 1)) + min
+  );
+}
+// console.log(getRandomArray(3, 8, 4));
+
+// 36. create a function that invokes each provided function
+// with the arguments it receives and returns the results.
+const over = (...fns) => (...args) => fns.map((fn) => fn.apply(null, args));
+const minMax = over(Math.min, Math.max);
+// console.log(minMax(1, 2, 3, 4, 5));
+
+// 37. get a sorted array of objects
+// ordered by properties and orders.
+function orderBy(arr, props, order) {}
 
 // 38. Write a JavaScript program to pad a string on both sides with the specified character, if it's shorter than the specified length.
 
