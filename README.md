@@ -1,1 +1,7 @@
-# JavaScript/UI Full Stack
+# Full Stack Development - Exercise
+
+## Assignment
+
+## Codility
+
+## Sessions
