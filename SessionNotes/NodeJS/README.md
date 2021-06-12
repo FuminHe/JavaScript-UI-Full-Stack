@@ -99,7 +99,8 @@ It lets JavaScript run outside brower. So that we could create server..and so on
       > The V8 Call stack which is simply a list of functions. A stack is a first in last out simple data structure.
 
       > Every time we step into a function, it gets pushed to the stack, and every time we return from a function, it gets popped out of the stack. It's really that simple.
-      
+      ![image](https://user-images.githubusercontent.com/46466591/121791322-97ae0400-cb9d-11eb-87e5-ced649888a59.png)
+
 
 
     
