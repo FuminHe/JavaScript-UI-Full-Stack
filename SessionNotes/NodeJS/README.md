@@ -61,29 +61,45 @@ It lets JavaScript run outside brower. So that we could create server..and so on
 
    1. Slow I/O operations are handled with events and callbacks so that they don't block the main single-threaded execution runtime.
 
-   - what is I/O?
-     > 1. I/O is short for input/output.
-     > 2. I/O is used to label a communication between a process in a computer CPU and anything external to that CPU: including memory, disk, network, and even another process.
-     > 3. The process communicates with these external things with signals or messages. **Those signals are input when they are received by the process, and output when they are sent out by the process.**
-     > 4. The term I/O is really overused, because naturally, almost every operation that happens inside and outside computers is an I/O operation, but when talking about Node's architecture, the term I/O is usually used to reference accessing disk and network resources, which is the most time-expensive part of all operations.
-     > 5. Node's event loop is designed around the major fact that the largest waste in computer programming comes from waiting on such I/O operations to complete.
-     > 6. We can handle requests for these slow operations in one of many ways.
-   - How to handling slow I/O
+    - what is I/O?
+      > 1. I/O is short for input/output.
+      > 2. I/O is used to label a communication between a process in a computer CPU and anything external to that CPU: including memory, disk, network, and even another process.
+      > 3. The process communicates with these external things with signals or messages. **Those signals are input when they are received by the process, and output when they are sent out by the process.**
+      > 4. The term I/O is really overused, because naturally, almost every operation that happens inside and outside computers is an I/O operation, but when talking about Node's architecture, the term I/O is usually used to reference accessing disk and network resources, which is the most time-expensive part of all operations.
+      > 5. Node's event loop is designed around the major fact that the largest waste in computer programming comes from waiting on such I/O operations to complete.
+      > 6. We can handle requests for these slow operations in one of many ways.
+    - How to handling slow I/O
 
-     > 1. We can just execute things synchronously. This is the easiest way to go about it, but it's horrible because one request is going to hold up other requests. We can fork a new process from the OS to handle each request, but that's probably won't scale very well with a lot of requests.
-     > 2. The most popular method for handling these requests is threads. We can start a new thread to handle each request.
-     > 3. But threaded programming can get very complicated when threads start accessing shared resources.
-     > 4. A lot of popular libraries and frameworks use threads. For example, Apache is multithreaded and it usually creates a thread per request. On the other hand, its major alternative, Nginx is single threaded, just like Node, which eliminates the overhead created by these multiple threads and simplify coding for shared resources.
-     > 5. Single threaded frameworks like Node use an event loop to handle requests for slow I/O operations without blocking the main execution runtime. This is the most important concept to understand about Node.
+      > 1. We can just execute things synchronously. This is the easiest way to go about it, but it's horrible because one request is going to hold up other requests. We can fork a new process from the OS to handle each request, but that's probably won't scale very well with a lot of requests.
+      > 2. The most popular method for handling these requests is threads. We can start a new thread to handle each request.
+      > 3. But threaded programming can get very complicated when threads start accessing shared resources.
+      > 4. A lot of popular libraries and frameworks use threads. For example, Apache is multithreaded and it usually creates a thread per request. On the other hand, its major alternative, Nginx is single threaded, just like Node, which eliminates the overhead created by these multiple threads and simplify coding for shared resources.
+      > 5. Single threaded frameworks like Node use an event loop to handle requests for slow I/O operations without blocking the main execution runtime. This is the most important concept to understand about Node.
 
    2. Event Loop: How exactly does this event loop work?
 
-   - What is Event Loop?
-     > 1. The entity that handles external events and converts them into callbacks invocations.
-     > 2. A loop that picks events from the event queue and pushed their callbacks to the call stack.
-     > 3. Node automatically starts when it executes a script.
-     > 4. Event loop is what makes the asynchronous callback programming style possible.
-     > 5. Node will exit the event loop when there are no more callbacks to perform.
-     
+    - What is Event Loop?
+
+      > 1. The entity that handles external events and converts them into callbacks invocations.
+      > 2. A loop that picks events from the event queue and pushed their callbacks to the call stack.
+      > 3. Node automatically starts when it executes a script.
+      > 4. Event loop is what makes the asynchronous callback programming style possible.
+      > 5. Node will exit the event loop when there are no more callbacks to perform.
+
      ![image](https://user-images.githubusercontent.com/46466591/121790998-02f5d700-cb9a-11eb-84e1-db5bc23911d3.png)
 
+    - what is **heap**?
+
+      > Where objects are stored in memory. Basically the memory that gets allocated by the VM for various tasks.
+
+      > For example, when we invoke a function, an area in this heap is allocated to act as the local scope of that function.
+
+    - what is **stack** in V8?
+
+      > The V8 Call stack which is simply a list of functions. A stack is a first in last out simple data structure.
+
+      > Every time we step into a function, it gets pushed to the stack, and every time we return from a function, it gets popped out of the stack. It's really that simple.
+      
+
+
+    
