@@ -84,3 +84,6 @@ It lets JavaScript run outside brower. So that we could create server..and so on
      > 3. Node automatically starts when it executes a script.
      > 4. Event loop is what makes the asynchronous callback programming style possible.
      > 5. Node will exit the event loop when there are no more callbacks to perform.
+     
+     ![image](https://user-images.githubusercontent.com/46466591/121790998-02f5d700-cb9a-11eb-84e1-db5bc23911d3.png)
+
