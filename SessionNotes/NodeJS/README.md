@@ -153,3 +153,95 @@ const ele_module = require(./elements);
 ```
 
 ## Events
+
+```javascript
+// require the API
+let event = require("events");
+
+// create an event instance
+let myEmitter = new event.EventEmitter();
+
+// define how to invoke the event
+myEmitter.on("run", function (msg) {
+  console.log("Program Running: ", msg);
+});
+
+// invoke
+myEmitter.emit("run", "The message");
+```
+
+---
+
+```javascript
+// if we need to use event on an object
+// we need util to inherit events
+let util = require("util");
+
+let Person = function (name) {
+  this.name = name;
+};
+util.inherits(Person, event.EventEmitter);
+
+let jhon = Person("Jhon");
+
+jhon.on("jump", function () {
+  console.log(person.name + " is jumping");
+});
+
+jhon.emit("jump");
+```
+
+## I/O Operation
+
+### fs
+
+```javascript
+let fs = require("fs");
+
+// sync
+const read = fs.readFileSync("source.txt", "utf-8");
+fs.writeFileSync("write.txt", data);
+
+//async - callbacks
+/* read */
+fs.readFile("source.txt", "utf-8", (err, data) => {
+  if (err) throw err;
+  else console.log(data);
+});
+/* write */
+fs.writeFile("write.txt", data, (err) => {
+  if (err) console.log(err.message);
+});
+// delete a file
+fs.unlink("write.txt", (err) => {
+  if (err) console.log(err.message);
+});
+
+// delete an empty folder
+fs.rmdir("a", (err) => {
+  if (err) console.log(err.message);
+});
+
+// delete a unEmpty folder
+fs.rmdir("testFolder", { recursive: true }, (err) => {
+  if (err) console.log(err.message);
+});
+```
+
+### http
+
+```javascript
+let http = require("http");
+
+// create server
+let server = http.createServer(function (req, res) {
+  // set header for res
+  res.writeHead(200, { "Content-Type": "text/html" });
+  // end the res, can't send any data after res.end()
+  res.end("<h1>end of res</h1>");
+});
+
+// set port and IP
+server.listen(3000, "127.0.0.1");
+console.log("Server is running at port 3000");
+```
