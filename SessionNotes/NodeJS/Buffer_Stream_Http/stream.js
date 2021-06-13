@@ -21,13 +21,33 @@ let myWriteStream = fs.createWriteStream(__dirname + "/write.txt");
 myReadStream.pipe(myWriteStream);
 
 /////////////////////////////////////////////
-let server = http.createServer(function (req, res) {
-  console.log("request was made from: " + req.url);
+// let server = http.createServer(function (req, res) {
+//   console.log("request was made from: " + req.url);
 
-  //header
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  const myReadStream = fs.createReadStream(__dirname + "/data.txt");
-  myReadStream.pipe(res);
-});
-server.listen(3000);
-console.log("server running at 3000");
+//   //header
+//   res.writeHead(200, { "Content-Type": "text/plain" });
+//   const myReadStream = fs.createReadStream(__dirname + "/data.txt");
+//   myReadStream.pipe(res);
+// });
+// server.listen(3000);
+// console.log("server running at 3000");
+
+//////////////////////////////////////////////////
+// create path
+http
+  .createServer(function (req, res) {
+    if (req.url == "/") {
+      fs.createReadStream(__dirname + "/index.html").pipe(res);
+    } else if (req.url == "/api") {
+      res.writeHead(200, { "Content-Type": "text/json" });
+      var obj = {
+        firtName: "Jhon",
+        lastName: "Smith",
+      };
+      res.end(JSON.stringify(obj));
+    } else {
+      res.write(404);
+      res.end();
+    }
+  })
+  .listen(3000);

@@ -140,7 +140,7 @@ It lets JavaScript run outside brower. So that we could create server..and so on
 
        It will de-queue one event from the queue and push its callback to the stack. It's called an event loop, because it loops this simple logic until the event Queue is empty.
 
-# Coding Syntax
+# Modules
 
 ## require & export
 
@@ -195,6 +195,11 @@ jhon.emit("jump");
 
 ### fs
 
+- fs.readFileSync / fs.writeFileSync
+- fs.readFile / fs.writeFile
+- fs.unlink
+- fs.rmdir
+
 ```javascript
 let fs = require("fs");
 
@@ -230,6 +235,35 @@ fs.rmdir("testFolder", { recursive: true }, (err) => {
 
 ### http
 
+- res.writeHead(200,{"Content-Type":""})
+- res.end() => end the res
+- res.write() => res could still write other things to res till res.end
+- How to handle image?
+  - make `res.writeHead(200, { "Content-Type": "image/jpeg" });`
+  - use html and <img> tag
+    ```javascript
+    // data is from fs.readFile("xx.jpg",(err,data))
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write('<html><body><img src="data:image/jpeg;base64,');
+    res.write(Buffer.from(data).toString("base64"));
+    res.end('"/></body></html>');
+    ```
+  - buffer write img-file
+    ```javascript
+    // file is from fs.open(filePath, "r", function (err, file) {}
+    buff = Buffer.alloc(99000);
+    fs.read(file, buff, 0, buff.length, 0, (err) => {
+      console.log(err);
+    });
+    res.end(buff);
+    ```
+- What is URL encoding? => solve the following two problems
+
+  [What is URL Encoding and How does it work?](https://www.urlencoder.io/learn/)
+
+  - Reserved characters like ?, /, #...
+  - unsafe characters like space, \, <, >, {, } etc, and any character outside the ASCII charset is not allowed to be placed directly within URLs.
+
 ```javascript
 let http = require("http");
 
@@ -248,4 +282,37 @@ console.log("Server is running at port 3000");
 
 ### Buffer
 
+- `Buffer.alloc(8)`
+- `Buffer.from([8, 9, 7, 5, 3, 0, 9])`
+- `buffer.write("hello", 2, "utf-8")`
+
 ### Stream
+
+- Read Stream
+
+```javascript
+myReadStream = fs.createReadStream(__dirname + "/data.txt", {
+  highWaterMark: 250,
+});
+```
+
+- Write Stream
+
+```javascript
+myWriteStream = fs.createWriteStream(__dirname + "/write.txt");
+```
+
+- pipe: read.pipe(write)
+
+```javascript
+myReadStream.pipe(myWriteStream);
+```
+
+### Promise
+
+- `new Promise((resolve, reject) => {}).then().catch()`
+
+- resolve(result) => `.then((result)=>{})`
+- reject(err) => `.catch((err)=>{})`
+
+### Mongoose
