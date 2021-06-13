@@ -140,4 +140,16 @@ It lets JavaScript run outside brower. So that we could create server..and so on
 
        It will de-queue one event from the queue and push its callback to the stack. It's called an event loop, because it loops this simple logic until the event Queue is empty.
 
-# Code
+# Coding Syntax
+
+## require & export
+
+```javascript
+// elements.js
+module.exports = elements;
+
+// main.js
+const ele_module = require(./elements);
+```
+
+## Events
