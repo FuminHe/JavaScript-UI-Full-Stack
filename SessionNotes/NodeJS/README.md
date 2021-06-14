@@ -351,3 +351,26 @@ myReadStream.pipe(myWriteStream);
   sampleSchema.findByIdAndRemove()
   sampleSchema.findByIdAndUpdate()
   ```
+
+### JWT
+
+- session id in cookie vs. JWT
+
+  - Session Id problem: server needs to store uer info in server memory.
+  - JWT: sever don't need to store info.
+
+- prevent change token in local storage?
+
+- syntax
+
+  ```javascript
+  //generate
+  jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "25s" });
+  // verify
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    req.user = user;
+    next();
+  });
+  ```
