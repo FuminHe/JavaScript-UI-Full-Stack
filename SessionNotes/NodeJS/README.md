@@ -316,3 +316,38 @@ myReadStream.pipe(myWriteStream);
 - reject(err) => `.catch((err)=>{})`
 
 ### Mongoose
+
+- step 1: connect with MongoDB in app.js
+
+  ```javascript
+  const dbURL = "mongodb://localhost:27017/mongooseDemo";
+  mongoose.connect(dbURL, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  });
+  const connection = mongoose.connection;
+  connection.once("open", () => {
+    console.log("MongoDB database connection established successfully");
+  });
+  ```
+
+- step 2: build schema for collection
+
+  ```
+    const Schema = mongoose.Schema();
+    const sampleSchema = new Schema(
+      {},{}
+    )
+  ```
+
+- step 3: build routes(find,update,delete)
+
+  ```
+  const router = require("express").Router();
+
+  sampleSchema.find()
+  sampleSchema.findById()
+  sampleSchema.findByIdAndRemove()
+  sampleSchema.findByIdAndUpdate()
+  ```
