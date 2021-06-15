@@ -2,6 +2,8 @@
 
 ## Interview Questions
 
+HTML/CSS/JS/NODEJS/REACT/ANGULAR
+
 ## SessionNotes
 
 1. HTML/CSS/JavaScript/Bootstrap
