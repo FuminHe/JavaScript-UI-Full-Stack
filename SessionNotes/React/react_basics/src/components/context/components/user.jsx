@@ -6,7 +6,7 @@ function User() {
     <div>
       <UserComsumer>
         {({ userInfo, updateContext }) => (
-          <>
+          <div>
             Name:
             <input
               type="text"
@@ -37,7 +37,7 @@ function User() {
                 });
               }}
             />
-          </>
+          </div>
         )}
       </UserComsumer>
     </div>

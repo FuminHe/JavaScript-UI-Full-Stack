@@ -160,11 +160,95 @@ export class ErrorBoundary extends React.Component {
 
 ## Fragments
 
+A common pattern in React is for a component to return multiple elements.
+
+- Fragments let you group a list of children without adding extra nodes to the DOM.
+  - A tiny bit faster and has less memory usage.
+  - The DOM inspector is less cluttered.
+- Some CSS mechanisms like Flexbox and CSS Grid have a special parent-child relationship, and adding divs in the middle makes it hard to keep the desired layout while extracting logical components.
+
+> `<React.Fragment></React.Fragment>` or `<></>`
+
 ## createElement() & cloneElement()
+
+- `createElement`: Create and return a new React element of the given type.
+  - `type`: either a tag name string (such as 'div' or 'span'), a React component type (a class or a function), or a React fragment type.
+  - `props`:
+  - `children`:
+
+```js
+React.createElement(type, [props], [...children]);
+```
+
+- `cloneElement`: Clone and return a new React element using element as the starting point.
+
+  The resulting element will have the original element’s props with the new props merged in shallowly.
+
+  New children will replace existing children. key and ref from the original element will be preserved.
+
+```js
+React.cloneElement(element, [props], [...children]);
+```
+
+> `createElement` is what JSX gets compiled to and is what React uses to create React Elements (object representations of some UI).
+>
+> `cloneElement` is used to clone an element and pass it new props.
 
 ## Code Spliting
 
+Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app.
+
+While you haven’t reduced the overall amount of code in your app, you’ve avoided loading code that the user may never need, and reduced the amount of code needed during the initial load.
+
+- **import()**
+
+```js
+import("./moduleA")
+  .then(({ moduleA }) => {
+    // Use moduleA
+  })
+  .catch((err) => {
+    // Handle failure
+  });
+```
+
+- **React.lazy**
+  - `Suspense - fallback`: The lazy component should then be rendered inside a `Suspense` component, which allows us to show some `fallback` content (such as a loading indicator) while we’re waiting for the lazy component to load.
+
+```js
+import React, { Suspense } from "react";
+
+const OtherComponent = React.lazy(() => import("./OtherComponent"));
+
+function MyComponent() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <OtherComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
+
 ## Hooks
+
+### useState - this.setState & this.state
+
+`const [count, setCount] = useState(0);`
+
+### useEffect
+
+combine componentDidMount, componentDidUpdate and componentWillUnmount together.
+
+```js
+useEffect(() => {
+  effect;
+  return () => {
+    cleanup;
+  };
+}, [input]);
+```
 
 ## Routing
 
@@ -178,7 +262,7 @@ Do the same thing that **Flux** and **Redux** do => have a common store to share
 
 **Context** is designed to share data that can be considered _global_ for a tree of React components, such as the current authenticated user, theme, or preferred language.
 
-- `React.createContext()`
+- `React.createContext(defaultValue)`
 - `Context.Provider`
 - `Context.Consumer`
 - `Class.contextType`
@@ -186,7 +270,34 @@ Do the same thing that **Flux** and **Redux** do => have a common store to share
 1. Create Context: When React renders a component that subscribes to this Context object it will read the current context value from the closest matching Provider above it in the tree.
 
 ```js
-const MyContext = React.createContext(defaultValue);
+const SampleContext = React.createContext();
+```
+
+2. Provide value
+
+```js
+// export provider in context
+const SampleProvider = SampleContext.Provider;
+
+// import SampleProvider
+// if we don't have value here, then use the defaultValue in createContext
+<SampleProvider value={}>
+  <>child components</>
+</SampleProvider>;
+```
+
+3. Use value
+
+```js
+// export consumer in context
+const SampleConsumer = SampleContext.Consumer;
+
+// import SampleConsumer
+<SampleConsumer>
+  {
+    ({pro1,pro2}) => ()
+  }
+</SampleConsumer>;
 ```
 
 # React-Redux
