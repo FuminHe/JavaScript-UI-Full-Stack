@@ -7,12 +7,13 @@ function UseEffectDemo() {
     age: 20,
   });
 
-  useEffect(() => {
-    effect;
-    return () => {
-      cleanup;
-    };
-  }, [input]);
+  // useEffect(() => {
+  //   effect;
+  //   return () => {
+  //     cleanup;
+  //   };
+  // }, [input]);
+
   return (
     <>
       Name:

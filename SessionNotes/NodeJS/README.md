@@ -1,3 +1,26 @@
+# Content
+
+1. OverView
+   1. why need NodeJS?
+   2. JS vs. NodeJS
+   3. Sync vs. Async
+   4. single thread vs. multi-thread (event loop)
+2. Modules
+   1. Events
+   2. Buffer
+   3. Stream
+   4. Process (child_process, cluster)
+   5. Crypto
+   6. File system
+   7. Globals
+   8. HTTP
+   9. OS
+   10. Path
+   11. REPL
+3. Packages
+   1. Mongoose
+   2. Express
+
 # Overview
 
 **1. Why we need NodeJS?**
@@ -139,6 +162,8 @@ It lets JavaScript run outside brower. So that we could create server..and so on
        Event Loop monitors the `Call Stack` and the `Event Queue`. When the stack is empty, and the queue is not empty (there are events waiting to be processed in the queue).
 
        It will de-queue one event from the queue and push its callback to the stack. It's called an event loop, because it loops this simple logic until the event Queue is empty.
+
+**5. V8 - Javascript engine**
 
 # Modules
 
@@ -288,6 +313,13 @@ console.log("Server is running at port 3000");
 
 ### Stream
 
+> There are four fundamental stream types within Node.js:
+>
+> - **Writable**: streams to which data can be written (for example, `fs.createWriteStream()`).
+> - **Readable**: streams from which data can be read (for example, `fs.createReadStream()`).
+> - **Duplex**: streams that implement both the Readable and Writable interfaces. (for example, `net.Socket`).
+> - **Transform**: Duplex streams that can modify or transform the data as it is written and read (for example, `zlib.createDeflate()`).
+
 - Read Stream
 
 ```javascript
@@ -308,14 +340,14 @@ myWriteStream = fs.createWriteStream(__dirname + "/write.txt");
 myReadStream.pipe(myWriteStream);
 ```
 
-### Promise
+## Promise
 
 - `new Promise((resolve, reject) => {}).then().catch()`
 
 - resolve(result) => `.then((result)=>{})`
 - reject(err) => `.catch((err)=>{})`
 
-### Mongoose
+## Mongoose
 
 - step 1: connect with MongoDB in app.js
 
@@ -352,7 +384,7 @@ myReadStream.pipe(myWriteStream);
   sampleSchema.findByIdAndUpdate()
   ```
 
-### JWT
+## JWT
 
 - session id in cookie vs. JWT
 
@@ -375,6 +407,113 @@ myReadStream.pipe(myWriteStream);
   });
   ```
 
-### OAuth - authorization
+## Bcrypt
 
-### Caching - redis
+## OAuth - authorization
+
+## Crypto
+
+## Caching - redis
+
+## Process (child_process & Cluster)
+
+### Process
+
+The `process` object is an instance of `EventEmitter`.
+
+- process.exit()
+
+  The `process.exit()` method instructs Node.js to terminate the process synchronously with an exit status of code. If code is omitted, exit uses either the 'success' code 0 or the value of process.exitCode if it has been set.
+
+  **Node.js will not terminate until all the 'exit' event listeners are called.**
+
+- process.abort()
+
+  The `process.abort()` method causes the Node.js process to **exit immediately** and generate a core file.
+
+- process.arch
+- process.argv
+- process.channel
+- `stdio` stream: stdin,stdout,stderr - duplex stream
+
+  ```js
+  const { spawn } = require("child_process");
+  const child = spawn("wc");
+
+  process.stdin.pipe(child.stdin);
+
+  child.stdout.on("data", (data) => {
+    console.log(`child stdout:\n${data}`);
+  });
+  ```
+
+- `process.nextTick(callback[, ...args])` VS. `setImmediate()`
+
+  - `process.nextTick()` fires immediately on the same phase
+  - `setImmediate()` fires on the following iteration or 'tick' of the event loop
+
+  > `process.nextTick()` fires more immediately than `setImmediate()`
+
+- Signal events:
+
+### Child Process
+
+[Node.js Child Processes: Everything you need to know](https://www.freecodecamp.org/news/node-js-child-processes-everything-you-need-to-know-e69498fe970a/)
+
+The `child_process` module enables us to access Operating System functionalities by running any **system command** inside a, well, child process.
+
+There are 4 different ways to create a child process in Node: `spawn()`, `fork()`, and `exec()`/`execFile()`.
+
+- `spawn("system command")`
+
+  ```js
+  const { spawn } = require("child_process");
+
+  const child = spawn("pwd");
+  child.on("exit", function (code, signal) {
+    console.log(
+      "child process exited with " + `code ${code} and signal ${signal}`
+    );
+  });
+  ```
+
+  > The other events that we can register handlers for with the ChildProcess instances are **disconnect**, **error**, **close**, **exit**, and **message**.
+  >
+  > 1. **close** vs. **exit**:
+  >
+  > - `close`: `stdio` streams of a child process get closed.
+  > - `exit`: exit one child process, does not mean that the streams got closed.
+  >
+  > 2. **message**: It's emitted when the child process uses the `process.send()` function to send messages. **This is how parent/child processes can communicate with each other**.
+
+- `exec()`: spawns a shell first - avaliabel for windows.
+
+  `execFile()`: spawns the command directly without first spawning a shell by default.
+
+  ```js
+  const { exec } = require("child_process");
+  exec("find . -type f | wc -l", (err, stdout, stderr) => {
+    if (err) {
+      console.error(`exec error: ${err}`);
+      return;
+    }
+
+    console.log(`Number of files ${stdout}`);
+  });
+  ```
+
+### Cluster
+
+Cluster helps you fork new process
+
+## OS
+
+## Global
+
+## Express
+
+## REPL - Run, Eval, Print, Loop
+
+REPL will accept individual lines of user input, evaluate those according to a user-defined evaluation function, then output the result.
+
+> It is similar to open a console in Chrome, and do things like `1 + 1`, `Math.random()`. And it will give the result `2` and `0.328768439`.
