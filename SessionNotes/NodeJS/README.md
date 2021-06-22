@@ -502,6 +502,22 @@ There are 4 different ways to create a child process in Node: `spawn()`, `fork()
   });
   ```
 
+- `fork()`
+
+```js
+const { fork } = require("child_process");
+
+const forked = fork("child.js");
+
+// get msg from child
+forked.on("message", (msg) => {
+  console.log("Message from child", msg);
+});
+
+// send msg to child
+forked.send({ hello: "world" });
+```
+
 ### Cluster
 
 Cluster helps you fork new process
@@ -511,6 +527,8 @@ Cluster helps you fork new process
 ## Global
 
 ## Express
+
+1. why introduce express.js
 
 ## REPL - Run, Eval, Print, Loop
 
