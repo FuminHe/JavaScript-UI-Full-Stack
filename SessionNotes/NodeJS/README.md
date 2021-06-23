@@ -17,6 +17,8 @@
    9. OS
    10. Path
    11. REPL
+   12. Error Handling
+   13. CommonJS vs. AMD
 3. Packages
    1. Mongoose
    2. Express
@@ -413,7 +415,44 @@ myReadStream.pipe(myWriteStream);
 
 ## Crypto
 
+The crypto module provides cryptographic functionality that includes a set of wrappers for OpenSSL's hash, HMAC, cipher, decipher, sign, and verify functions.
+
+1. bcrypt
+
+   Do slow and computationally expensive hashing -- this will generally be for hashes where you really don't want an attacker to be able to reverse the hash, e.g. user passwords.
+
+1. scrypt
+
+   `crypto.scrypt(password, salt, keylen[, options], callback)`
+
+   Similar to `bcrypt`
+
+1. Cipher/Decipher
+
+   `crypto.createCipher(algorithm, password[, options])`
+
+   `crypto.createDecipher(algorithm, password[, options])`
+
+1. MD5
+
+   `crypto.createHash('md5').update(data).digest("hex");`
+
+1. PBKDF2 - Password-Based Key Derivation Function 2
+
+   `crypto.pbkdf2(password, salt, iterations, keylen, digest, callback)`
+
+1. SHA-256
+
+   ```js
+   require("crypto")
+     .createHash("sha256")
+     .update("Man oh man do I love node!")
+     .digest("hex");
+   ```
+
 ## Caching - redis
+
+https://github.com/FuminHe/Full-Stack-Note/blob/main/redis-nodejs/app.js
 
 ## Process (child_process & Cluster)
 
@@ -455,6 +494,12 @@ The `process` object is an instance of `EventEmitter`.
   > `process.nextTick()` fires more immediately than `setImmediate()`
 
 - Signal events:
+
+  **'SIGTERM'** and **'SIGINT'** have default handlers on non-Windows platforms that reset the terminal mode before exiting with code 128 + signal number. If one of these signals has a listener installed, its default behavior will be removed (Node.js will no longer exit).
+
+  **'SIGTERM'** is not supported on Windows, it can be listened on.
+
+  **'SIGINT'** from the terminal is supported on all platforms, and can usually be generated with `Ctrl+C` (though this may be configurable). It is not generated when terminal raw mode is enabled and `Ctrl+C` is used.
 
 ### Child Process
 
@@ -520,7 +565,9 @@ forked.send({ hello: "world" });
 
 ### Cluster
 
-Cluster helps you fork new process
+The cluster module allows easy creation of child processes that all share server ports.
+
+use `cluster.fork()`
 
 ## OS
 
@@ -530,8 +577,73 @@ Cluster helps you fork new process
 
 1. why introduce express.js
 
+   `express` module is a web framework that is built on top the `http` module that makes it easy using a fully wedged web server without reinventing the wheel.
+
+   It has routing, middleware to
+
+2. `middleware` in express.js
+
+   **Middleware** functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle. The next middleware function is commonly denoted by a variable named next.
+
+   Middleware functions can perform the following tasks:
+
+   - Execute any code.
+   - Make changes to the request and the response objects.
+   - End the request-response cycle.
+   - Call the next middleware function in the stack.
+
+   ```js
+   app.get("/posts", authenticateToken, (req, res) => {
+     res.json({});
+   });
+
+   function authenticateToken(req, res, next) {
+      // do something or change the res/req
+       next();
+     });
+   }
+   ```
+
+> I feel like all the functions inside router.HttpMethod() or app.use() are all middlewares. Like the `(req, res) => {res.json({});}` above after `authenticateToken` is also a middleware.
+
 ## REPL - Run, Eval, Print, Loop
 
 REPL will accept individual lines of user input, evaluate those according to a user-defined evaluation function, then output the result.
 
 > It is similar to open a console in Chrome, and do things like `1 + 1`, `Math.random()`. And it will give the result `2` and `0.328768439`.
+
+## Error Handling
+
+- `try{} catch{}`
+- `reject` and `.catch((err)=>{})` in Promise
+- callbacks
+- `throw` the error (making it an exception).
+
+  `throw new Error('BROKEN')`
+
+## CommonJS vs. AMD(Asynchronous Module Definition)
+
+- CommonJS: a way of defining modules with the help of an exports object, that defines the module contents.
+
+  ```js
+  exports.doSomething = function () {
+    return "foo";
+  };
+  ```
+
+  only allowed **one module per file**, so a "transport format" would be used for bundling more than one module in a file for optimization/bundling purposes.
+
+- AMD: designed to suit the browser environment, support for asynchronous module loading.
+
+  - Defines a way to **include multiple modules in one file**. In CommonJS terms, the term for this is a "transport format", and that group has not agreed on a transport format.
+
+  - **Allows setting a function as the return value**. This is really useful for constructor functions. In CommonJS this is more awkward, always having to set a property on the exports object. Node supports `module.exports = function () {}`, but that is not part of a CommonJS spec.
+
+  ```js
+  define(function (require) {
+    var dep1 = require("dep1"),
+      dep2 = require("dep2");
+
+    return function () {};
+  });
+  ```

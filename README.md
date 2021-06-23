@@ -6,23 +6,24 @@ HTML/CSS/JS/NODEJS/REACT/ANGULAR
 
 ## SessionNotes
 
+1. Accessibility: https://www.smashingmagazine.com/2021/06/complete-guide-accessibility-tooling/
 1. HTML/CSS/JavaScript/Bootstrap
-2. NodeJS
-3. React
+1. NodeJS
+1. React
    - ReactJS(Context, Redux, Flux, Saga, Thunk, routing, hooks)
    - MERN Stack
    - React Native
    - jest-dom test
-4. Angular
+1. Angular
    - AngularJS
    - Angular9
    - test
-5. MongoDB
-6. Development tools
+1. MongoDB
+1. Development tools
    - Babel
    - Jasmin
-   - gulp
-   - grut
+   - Gulp
+   - Grut
 
 ## CodilityChanllenge
 
