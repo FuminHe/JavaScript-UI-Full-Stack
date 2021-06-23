@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Combinators</title>
+    <style>
+      div ~ p {
+        background-color: blanchedalmond;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      div ~ p: all p tags which have a div tag before them. No mater if there
+      are any other tags between them.
+    </h1>
+    <div>
+      <p>First p tag inside div</p>
+      <p>second p tag inside div</p>
+    </div>
+
+    <p>First p tag after div(outside div)</p>
+    <p>Second p tag after div(outside div)</p>
+    <span>This is a span tag</span>
+    <p>Fist P tag after span and after div</p>
+    <p>Second P tag after span and after div</p>
+  </body>
+</html>
