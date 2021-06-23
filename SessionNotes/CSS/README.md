@@ -53,57 +53,61 @@ This is used to make a particular property and value the most specific thing, th
 
 # Selectors
 
-1. Simple selector
+## Simple selector
 
-   - tag name: `p {}`
-   - id: `#elementId {}`
-   - class: `.className {}`
-   - tagName.class: Selects only <p> elements with class="intro".
-   - group selectors: `div, .className {}`
-   - `*{}`: universal selector, apply to all elements in the html.
+- tag name: `p {}`
+- id: `#elementId {}`
+- class: `.className {}`
+- `p.intro`: Selects only `<p>` elements with `class="intro"`.
+- group selectors: `div, .className {}`
+- `*{}`: universal selector, apply to all elements in the html.
 
-2. Combinator selectors
+## Combinator selectors
 
-   - `div p`: Selects all <p> elements **inside** <div> elements.
-   - `div > p`: Selects all <p> elements where **the parent** is a <div> element.
-   - `div + p`: Selects the first <p> element that are placed **immediately after** <div> elements.
-   - `div ~ p`: Selects every <p> element that **are preceded by** a <div> element.
+- `div p`: Selects all <p> elements **inside** <div> elements.
+- `div > p`: Selects all <p> elements where **the parent** is a <div> element.
+- `div + p`: Selects the first <p> element that are placed **immediately after** <div> elements.
+- `div ~ p`: Selects every <p> element that **are preceded by** a <div> element.
 
-     > all p tags which have a div tag **before them** (P tags can't inside div). No mater if there are any other tags between them.
+  > all p tags which have a div tag **before them** (P tags can't inside div). No mater if there are any other tags between them.
 
-3. Pseudo-class selectors: selector that **specifies a special state** of the selected element(s).
+## Pseudo-class selectors:
 
-   Pseudo-classes let you apply a style to an element not only in **relation to the content of the document tree**, but also in **relation to external factors** like the history of the navigator (:visited, for example), the status of its content (like :checked on certain form elements), or the position of the mouse (like :hover, which lets you know if the mouse is over an element or not).
+Selector that **specifies a special state** of the selected element(s).
 
-   - Linguistic pseudo-classes: `:dir`, `:lang`.
-   - Location: relate to links. `:link`, `visited`, `:target`.
-   - User action: `:hover`, `:active`, `:focus`.
-   - Time-dimensional: `:current`, `:past`, `:future`
-   - Resource state: `:playing`, `:paused`.
-   - The input: `:autofill`, `:enabled`, `:disabled`, `:checked`...
-   - Tree-structural: `:nth-child`, `:nth-last-child`...
+Pseudo-classes let you apply a style to an element not only in **relation to the content of the document tree**, but also in **relation to external factors** like the history of the navigator (:visited, for example), the status of its content (like :checked on certain form elements), or the position of the mouse (like :hover, which lets you know if the mouse is over an element or not).
 
-4. Pseudo-elements selectors: lets you style a **specific part** of the selected element(s).
+- Linguistic pseudo-classes: `:dir`, `:lang`.
+- Location: relate to links. `:link`, `visited`, `:target`.
+- User action: `:hover`, `:active`, `:focus`.
+- Time-dimensional: `:current`, `:past`, `:future`
+- Resource state: `:playing`, `:paused`.
+- The input: `:autofill`, `:enabled`, `:disabled`, `:checked`...
+- Tree-structural: `:nth-child`, `:nth-last-child`...
 
-   For example:
+## Pseudo-elements selectors
 
-   - `::after`, `::before`
-   - `::first-letter`, `::first-line`
+Lets you style a **specific part** of the selected element(s).
 
-5. Attribute selectors
+For example:
 
-   - `a[target]{}`: all `a` tags with `target` attribute.
-   - `a[target="_blank"]{}`: the **value** of the `target` **is** `_blank`.
-   - `[title~="flower"]{}`: select elements with an attribute whose value is a whitespace-separated list of words, and the list **containing** a specified word. e.g. `title = "fsfd flower fsdfs"`
-   - `[class|="top"]{}`: exact value, like `class = "top"` or immediately **followed by a hyphen**, like `class = "top-sososo"`.
-   - `[class^="top"]{}`: attr whose value is **prefixed** (preceded) by value. e.g. `class = "topsasa"`.
-   - `[class$="test"]`: select elements whose attribute value **ends with** a specified value.
-   - `[class*="te"]`: select attr whose value contains at least **one occurrence of value within the string**. e.g. `class="dfdtedfd"`
-   - `[class*="te" i]` or `[class*="te" s]`:
+- `::after`, `::before`
+- `::first-letter`, `::first-line`
 
-     `i` - case-insensitively.
+## Attribute selectors
 
-     `s` - case-sensitively.
+- `a[target]{}`: all `a` tags with `target` attribute.
+- `a[target="_blank"]{}`: the **value** of the `target` **is** `_blank`.
+- `[title~="flower"]{}`: select elements with an attribute whose value is a whitespace-separated list of words, and the list **containing** a specified word. e.g. `title = "fsfd flower fsdfs"`
+- `[class|="top"]{}`: exact value, like `class = "top"` or immediately **followed by a hyphen**, like `class = "top-sososo"`.
+- `[class^="top"]{}`: attr whose value is **prefixed** (preceded) by value. e.g. `class = "topsasa"`.
+- `[class$="test"]`: select elements whose attribute value **ends with** a specified value.
+- `[class*="te"]`: select attr whose value contains at least **one occurrence of value within the string**. e.g. `class="dfdtedfd"`
+- `[class*="te" i]` or `[class*="te" s]`:
+
+  `i` - case-insensitively.
+
+  `s` - case-sensitively.
 
 # Box Modle
 
