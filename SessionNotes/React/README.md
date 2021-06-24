@@ -453,7 +453,16 @@ Redux middleware were designed to enable Async logic and to has side effects.
 
 ### Thunk
 
-Redux Thunk is a middleware that allows you to call the action creators that return a function(thunk) which takes the store’s dispatch method as the argument and which is afterwards used to dispatch the synchronous action after the API or side effects has been finished.
+Redux Thunk is a middleware that allows you to call a function as an Action to do Async things like call a API in dispatch in `mapDispatchToProps`.
+
+```js
+// normally the thing in dispatch is a pure action(function)
+// but use thunk, it allows to use function with sideEffects:API calls
+
+const mapDispatchToProps = (dispatch) => {
+  return { fetchUserData: () => dispatch(fetchUsers()) };
+};
+```
 
 ### Saga
 
