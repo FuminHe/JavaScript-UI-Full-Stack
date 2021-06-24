@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { UserProvider } from "./components/userContext";
 import User from "./components/user";
 import Theme from "./components/theme";
+import UseContext from "../hooks/useContext";
 
 export class MainContextDemo extends Component {
   constructor(props) {
@@ -39,6 +40,8 @@ export class MainContextDemo extends Component {
           <p>Theme:{this.state.theme}</p>
           <Theme />
         </div>
+        <hr />
+        <UseContext />
       </UserProvider>
     );
   }

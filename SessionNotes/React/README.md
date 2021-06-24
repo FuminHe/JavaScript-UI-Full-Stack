@@ -1,5 +1,21 @@
 # React Basic
 
+## Virtual DOM
+
+The virtual DOM a programming concept, is a virtual representation of the real DOM.
+
+Everytime the state of our application changes, it will create a new virtual DOM.
+
+React will compare the difference between the previous virtual DOM and this new virtual DOM tree.
+
+Once React knows which virtual DOM objects have changed, then React updates only those objects, in the real DOM.
+
+## Immutability
+
+**React elements are immutable**. Once you create an element, you can’t change its children or attributes. An element is like a single frame in a movie: it represents the UI at a certain point in time.
+
+With our knowledge so far, **the only way to update the UI is to create a new element, and pass it to `ReactDOM.render()`**.
+
 ## Functional component
 
 **Always the best choice => smaller & faster and use hooks**
@@ -86,7 +102,11 @@ export default EventBind;
 
 This is commonly called a **"top-down" or "unidirectional" data flow**. Any state is always owned by some specific component, and any data or UI derived from that state can only affect components “below” them in the tree.
 
-> I think unidirectional data flow means: data is always from parent components to child components, never from child component sto parent components.
+> I think unidirectional data flow means: data is always from parent components to child components, never from child components to parent components.
+>
+> state => view => click/action => to change state => re-render the view
+
+![One way data flow](img/oneWayDataFlow.png "One way data flow").
 
 ## JSX
 
@@ -196,7 +216,7 @@ React.cloneElement(element, [props], [...children]);
 
 ## Code Spliting
 
-Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app.
+Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app. Using tools like **Webpack**, Rollup or **Browserify**.
 
 While you haven’t reduced the overall amount of code in your app, you’ve avoided loading code that the user may never need, and reduced the amount of code needed during the initial load.
 
@@ -239,16 +259,106 @@ function MyComponent() {
 
 ### useEffect
 
-combine componentDidMount, componentDidUpdate and componentWillUnmount together.
+combine `componentDidMount`, `componentDidUpdate` and `componentWillUnmount` together.
 
 ```js
 useEffect(() => {
-  effect;
+  // effect;
+  // things inside componentDidUpdate
   return () => {
-    cleanup;
+    // cleanup;
+    // things inside componentWillUnmount
   };
 }, [input]);
+// input could be the condition of componentDidUpdate
+
+// use an empty [] to make useEffect to act like componentDidMount
 ```
+
+### useContext
+
+Act like `MyContext.Consumer`, The sytanx is `const theme = useContext(ThemeContext);`
+
+### useReducer
+
+An alternative to `useState`:
+
+`const [state, dispatch] = useReducer(reducer, initialArg, init);`
+
+```js
+function init(initialCount) {
+  return { count: initialCount };
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    case "reset":
+      return init(action.payload);
+    default:
+      throw new Error();
+  }
+}
+
+function Counter({ initialCount }) {
+  const [state, dispatch] = useReducer(reducer, initialCount, init);
+  return (
+    <>
+      Count: {state.count}
+      <button
+        onClick={() => dispatch({ type: "reset", payload: initialCount })}
+      >
+        Reset
+      </button>
+      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+    </>
+  );
+}
+```
+
+### useCallback
+
+```js
+const memoizedCallback = useCallback(() => {
+  doSomething(a, b);
+}, [a, b]);
+```
+
+### useMemo
+
+Pass a “create” function and an array of dependencies. useMemo will only recompute the memoized value when one of the dependencies has changed. This optimization helps to avoid expensive calculations on every render.
+
+### useRef
+
+`const refContainer = useRef(initialValue);`
+
+`useRef` is like a “box” that can hold a **mutable** value(corresponding DOM node) in its .current property.
+
+```js
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+  return (
+    <>
+      <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+```
+
+### useImperativeHandle
+
+### useLayoutEffect
+
+### useDebugValue
 
 ## Routing
 
@@ -302,12 +412,57 @@ const SampleConsumer = SampleContext.Consumer;
 
 # React-Redux
 
-## Redux Basic
+Redux is a pattern and library for managing and updating application state, using events called "actions".
+
+It serves as a centralized store for state that needs to be used across your entire application, with rules ensuring that the state can only be updated in a predictable fashion.
+
+## Immutability - State is Read-Only
+
+The only way to change the `state` is to `dispatch` an `action`, an object that describes what happened.
+
+This way, the UI won't accidentally overwrite data, and it's easier to trace why a state update happened. Since actions are plain JS objects, they can be logged, serialized, stored, and later replayed for debugging or testing purposes.
+
+> In order to update values immutably, your code must make copies of existing objects/arrays, and then modify the copies.
+
+## Reducer - Pure function
+
+Reducers are pure functions that take the previous state and an action, and return the next state. and they must never contain _"side effects"_.
+
+A **"side effect"** is any change to state or behavior that can be seen outside of returning a value from a function.
+
+Some common kinds of side effects are things like:
+
+- Logging a value to the console
+- Saving a file
+- Setting an async timer
+- Making an AJAX HTTP request
+- Modifying some state that exists outside of a function, or mutating arguments to a function
+- Generating random numbers or unique random IDs (such as Math.random() or Date.now())
+
+## Unidirectional Data Flow
+
+state => UI => dispatch(event handler) => store(reducer) => update the state => update UI
+
+![Data flow for redux](img/reduxDataFlow.png "data flow for redux")
 
 ## Middleware
 
+Redux middleware is a function or a piece of code that sits between action and reducer and can interact with the dispatched action before reaching the reducer function.
+
+Redux middleware were designed to enable Async logic and to has side effects.
+
 ### Thunk
+
+Redux Thunk is a middleware that allows you to call the action creators that return a function(thunk) which takes the store’s dispatch method as the argument and which is afterwards used to dispatch the synchronous action after the API or side effects has been finished.
 
 ### Saga
 
+**redux-saga** is also a middleware library that helps us with API calls or side effects. Redux Saga uses an ES6 feature called **Generators** which helps us to write asynchronous code.
+
+### Thunk vs. Saga
+
+Saga is easy to scale as compared to redux-thunk.
+
 # Flux
+
+https://facebook.github.io/flux/docs/in-depth-overview

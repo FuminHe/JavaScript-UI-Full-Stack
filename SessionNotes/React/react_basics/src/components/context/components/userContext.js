@@ -7,4 +7,4 @@ const UserContext = React.createContext({ name: "Jhon" });
 const UserProvider = UserContext.Provider;
 const UserComsumer = UserContext.Consumer;
 
-export { UserProvider, UserComsumer };
+export { UserContext, UserProvider, UserComsumer };
