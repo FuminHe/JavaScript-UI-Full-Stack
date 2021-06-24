@@ -218,3 +218,432 @@ background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
    Screen readers cannot parse background images, therefore they should be purely decoration; any important content should be part of the HTML page and not contained in a background.
 
 # Text Directions
+
+## `writing-mode`
+
+- `horizontal-tb`
+- `vertical-rl`
+- `vertical-lr`
+
+## `inline-size`, `block-size`
+
+# Overflowing content
+
+Overflow happens when there is too much content to fit in a box.
+
+1. `overflow: visible`: default, content show outside the box.
+2. `overflow: hidden`: the content outside the box is not visible.
+3. `overflow: scroll`: `overflow-x` and `overflow-y`, show scroll bar all the time.
+4. `overflow: auto`: show scroll bar only when it's necessary.
+5. `overflow: clip`
+
+# Values and Units
+
+1. Length Unit
+
+   1. Absolute length units: cm, mm, ..., px
+
+   2. Relative length units:
+      - 1em: Font size of the parent
+      - 1rem: Font size of the root element.
+      - 1vw: 1% of the viewport's width.
+      - 1vh: 1% of the viewport's height.
+      - 1vmin: 1% of the viewport's smaller dimension.
+      - 1vmax: 1% of the viewport's larger dimension.
+
+2. percentage
+
+   1. related to the parents.
+   2. padding & margin
+
+      When you use margin and padding set in percentages, the value is calculated from the inline size of the containing block — therefore the width when working in a horizontal language. In our example, all of the margins and padding are 10% of the width.
+
+3. min-/max- width/height
+
+# Normalize/Reset CSS
+
+**Normalize CSS** aims to make built-in browser styling consistent across browsers.
+
+**CSS resets** aim to remove all built-in browser styling
+
+# Flexbox
+
+Flexbox is a **one-dimensional** layout method for laying out items in rows or columns. Items flex to fill additional space and shrink to fit into smaller spaces.
+
+## Flex Container
+
+### flex-direction
+
+specifies what direction the main axis runs in — by default this is set to row.
+
+- `flex-direction: row`: x - axio
+- `flex-direction: row-reverse`
+- `flex-direction: column`: y - axio
+- `flex-direction: column-reverse`
+
+### flex-wrap
+
+sets whether flex items are forced onto one line or can wrap onto multiple lines.
+
+- `flex-wrap: nowrap`: feel this is similar to `overflow: visible`.
+- `flex-wrap: wrap`
+- `flex-wrap: wrap-reverse`
+
+### flex-flow
+
+Combination of `flex-direction` and `flex-wrap`.
+
+Sytanx is: `flex-flow: direction wrapVal`.
+
+For example: `flex-flow: row wrap`. This is equal to `flex-direction: row; flex-wrap: wrap;`
+
+### justify-content
+
+Controls where the **flex items** sit on the **main axis** based on `flex-direction`.
+
+- `space-between`
+
+  The spacing between each pair of adjacent items is the same. The first item is flush with the main-start edge, and the last item is flush with the main-end edge.
+
+- `space-around`
+
+  The spacing between each pair of adjacent items is the same. The empty space before the first and after the last item equals half of the space between each pair of adjacent items.
+
+- `space-evenly`
+
+  The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.
+
+### align-content
+
+Used to align the **flex lines**. with the `flex-wrap` property set to `wrap`.
+
+### align-items
+
+Controls where the flex items sit on the **cross axis**.
+
+## Flex Items
+
+### flex: grow, shrink and basis
+
+Combination of `flex-grow`, `flex-shrink` and `flex-basis`.
+
+```css
+/* one value:
+number ? flex-grow:flex-basis*/
+flex: 2;
+flex: 2px;
+
+/* two value:
+First one: flex-grow
+second one: number ? flex-shrink: flex-basis
+ */
+
+/* flex-grow | flex-basis */
+flex: 1 30px;
+
+/* flex-grow | flex-shrink */
+flex: 2 2;
+
+/* Three values: flex-grow | flex-shrink | flex-basis */
+flex: 2 2 10%;
+```
+
+- **flex-grow**
+
+  Specifies how much a flex item will **grow** relative to the rest of the flex items.
+
+  This property specifies how much of the remaining space in the flex container should be assigned to the item (the flex grow factor).
+
+  The remaining space is the size of the flex container minus the size of all flex items' sizes together.
+
+- **flex-shrink**
+
+  Specifies how much a flex item will **shrink** relative to the rest of the flex items.
+
+- **flex-basis**
+
+  Specifies the **initial length** of a flex item.
+
+### order
+
+Specifies the order of the flex items.
+
+```html
+<div class="flex-container">
+  <div style="order: 3">1</div>
+  <div style="order: 2">2</div>
+  <div style="order: 4">3</div>
+  <div style="order: 1">4</div>
+</div>
+<!-- show: 4 2 1 3 -->
+```
+
+### align-self
+
+Specifies the alignment for the selected item inside the flexible container.
+
+- `auto`: Default. The element inherits its parent container's align-items property, or "stretch" if it has no parent container.
+
+- `stretch`: The element is positioned to fit the container.
+
+- `center`: The element is positioned at the center of the container.
+
+- `flex-start`: The element is positioned at the beginning of the container.
+
+- `flex-end`: The element is positioned at the end of the container.
+
+- `baseline`: The element is positioned at the baseline of the container.
+
+# Grid
+
+CSS Grid Layout is a **two-dimensional** layout system for the web. It lets you lay content out in rows and columns, and has many features that make building complex layouts straightforward.
+
+## Grid Container
+
+### create rows and columns
+
+- `grid-template-columns` & `grid-template-rows`
+
+```CSS
+.container {
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+
+    /* OR */
+
+    grid-template-columns: 1fr 1fr 1fr;
+
+    /* OR */
+    grid-template-columns: repeat(3, 1fr);
+}
+```
+
+- `grid-auto-rows` & `grid-auto-columns`
+
+```CSS
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 100px;
+
+  /* OR */
+  grid-auto-rows: minmax(100px, auto);
+}
+```
+
+### gap
+
+`column-gap` for gaps between columns, `row-gap` for gaps between rows, and `gap` to set both at once.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+}
+```
+
+### justify-content
+
+### align-content
+
+## Grid Item
+
+### grid-column
+
+A shorthand for `grid-column-end` and `grid-column-start`.
+
+```CSS
+.item1 {
+   /* From curent line number, and occupy 2 cells */
+  grid-column: span 2;
+
+  /* show in the cell with line number 4 */
+  grid-column: 4;
+
+   /* grid-column-start / grid-column-end */
+  /* show from line 1 to line 2, before line 3 */
+  grid-column: 1 / 3;
+
+  /* from end to line 2, include the cell with line 2 */
+  grid-column: 2 / -1;
+
+  /* start from line 1, occupy 2 cells */
+  grid-column: 1 / 2;
+}
+```
+
+### grid-row
+
+`grid-row-start` and `grid-row-end`. The syntax is the same as `grid-column`.
+
+### grid-area
+
+Can be used as a shorthand property for the `grid-row-start`, `grid-column-start`, `grid-row-end` and the `grid-column-end` properties.
+
+```CSS
+.item8 {
+   /* grid-row-start/grid-column-start/grid-row-end/grid-column-end  */
+  grid-area: 1 / 2 / 5 / 6;
+
+/* row-start/column-start/row-span/column-span */
+  grid-area: 2 / 1 / span 2 / span 3;
+}
+```
+
+### `grid-template-areas`
+
+Give names to `grid-area`
+
+```CSS
+.container {
+  display: grid;
+  grid-template-areas:
+      "header header"
+      "sidebar content"
+      "footer footer";
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
+}
+
+header {
+  grid-area: header;
+}
+
+article {
+  grid-area: content;
+}
+
+aside {
+  grid-area: sidebar;
+}
+
+footer {
+  grid-area: footer;
+}
+```
+
+# Float
+
+The float property allow web developers to implement simple layouts involving an element floating inside a column of text, with the text wrapping around the left or right of it.
+
+## `float`
+
+- `float: left`
+- `float: right`
+- `float: none`
+
+## clear floats
+
+`clear` sets whether an element must be moved below (cleared) floating elements that precede it.
+
+e.g. Apply `clear` to `p_2`.
+
+```html
+<div class="float_div">I'm a float</div>
+
+<p class="p_1">Lorem ipsum dolor sit amet consectetur</p>
+
+<p class="p_2">Lorem ipsum dolor sit amet consectetur</p>
+```
+
+- `none`
+- `left`: The element is pushed below left floated elements
+- `right`: The element is pushed below right floated elements
+- `both`: The element is pushed below both left and right floated elements
+
+When clearing floats, you should match the clear to the float: If an element is floated to the **left**, then you should clear to the **left**. Your floated element will continue to float, but the cleared element will appear below it on the web page.
+
+## clearfix
+
+Deal with situations that you have a tall float and a short paragraph, with a box wrapped around both elements.
+
+To make the box match the height of the float.
+
+```html
+<!-- 1. use overflow: auto -->
+<style>
+  .clearfix_box {
+    background-color: rgb(79, 185, 227);
+    padding: 10px;
+    color: #fff;
+    /* overflow: auto; */
+    display: flow-root;
+  }
+</style>
+<!-- 2. use display: flow-root -->
+
+<div class="clearfix_box">
+  <div class="float_div">I'm a float</div>
+  <p>Lorem ipsum dolor sit amet</p>
+</div>
+<p>Lorem ipsum dolor sit amet</p>
+```
+
+# Positioning
+
+## `position:static`
+
+The default that every element gets, it just means "put the element into its normal position in the document layout flow — nothing special to see here."
+
+## `position: relative`
+
+Once the positioned element has taken its place in the normal layout flow, you can then modify its final position: `left`,`right`,`top`,`bottom` based on its own position.
+
+```CSS
+p {
+   background-color: cadetblue;
+   border: 2px solid rebeccapurple;
+}
+.p2 {
+   position: relative;
+   top: 50px;
+   left: 10px;
+}
+```
+
+## `position: absolute`
+
+An absolutely positioned element no longer exists in the normal document layout flow. Instead, it sits on its own layer separate from everything else.
+
+`top`... move relative to its nearest positioned ancestor
+
+## `position: fixed`
+
+fixed positioning usually fixes an element in place relative to the visible portion of the viewport, except if one of its ancestors is a fixed containing block.
+
+It will not move when scroll the page.
+
+## `position: sticky`
+
+This is basically a hybrid between relative and fixed position, which allows a positioned element to act like it is relatively positioned until it is scrolled to a certain threshold point, after which it becomes fixed.
+
+> need to define `top`... to make `sticky` work.
+
+## `z-index`
+
+`z-index` values affect where positioned elements sit on that axis; positive values move them higher up the stack, and negative values move them lower down the stack.
+
+# Media Query
+
+```css
+@media media-type and (media-feature-rule) {
+  /* CSS rules go here */
+}
+```
+
+- media-type: screen, all
+- media-feature-rule: max-/min-width
+
+```css
+div {
+  background-color: salmon;
+}
+
+@media screen and (min-width: 700px) {
+  /* will show green when width >= 700 */
+  div {
+    background-color: springgreen;
+  }
+}
+```

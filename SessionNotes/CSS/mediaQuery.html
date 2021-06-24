@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media Query</title>
+    <style>
+      div {
+        background-color: salmon;
+      }
+
+      @media screen and (min-width: 700px) {
+        /* will show green when width >= 700 */
+        div {
+          background-color: springgreen;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div>change background color when change the width</div>
+  </body>
+</html>

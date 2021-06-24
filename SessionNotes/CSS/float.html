@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Float</title>
+    <style>
+      .float_div {
+        float: left;
+        width: 150px;
+        height: 100px;
+        border-radius: 5px;
+        background-color: rgb(207, 232, 220);
+        padding: 1em;
+        margin: 15px;
+      }
+      .p_1 {
+        background-color: rgb(79, 185, 227);
+        padding: 10px;
+        color: #fff;
+      }
+      .p_2 {
+        clear: left;
+      }
+      /* .clearfix_box::after {
+        content: "";
+        clear: both;
+        display: block;
+      } */
+      .clearfix_box {
+        background-color: rgb(79, 185, 227);
+        padding: 10px;
+        color: #fff;
+        /* overflow: auto; */
+        display: flow-root;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Simple float demo</h1>
+
+    <div class="float_div">I'm a float</div>
+
+    <p class="p_1">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nisi quidem
+      laborum illo reiciendis quas deserunt delectus ullam non minus nostrum
+      aperiam ad ea consequatur at et iure, autem voluptate.
+    </p>
+
+    <p class="p_2">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nisi quidem
+      laborum illo reiciendis quas deserunt delectus ullam non minus nostrum
+      aperiam ad ea consequatur at et iure, autem voluptate.
+    </p>
+
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nisi quidem
+      laborum illo reiciendis quas deserunt delectus ullam non minus nostrum
+      aperiam ad ea consequatur at et iure, autem voluptate.
+    </p>
+
+    <hr />
+    <h1>Clearfix</h1>
+    <div class="clearfix_box">
+      <div class="float_div">I'm a float</div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nisi
+        quidem laborum illo reiciendis quas deserunt delectus ullam non minus
+        nostrum aperiam ad ea consequatur at et iure, autem voluptate.
+      </p>
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nisi quidem
+      laborum illo reiciendis quas deserunt delectus ullam non minus nostrum
+      aperiam ad ea consequatur at et iure, autem voluptate.
+    </p>
+
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nisi quidem
+      laborum illo reiciendis quas deserunt delectus ullam non minus nostrum
+      aperiam ad ea consequatur at et iure, autem voluptate.
+    </p>
+  </body>
+</html>
