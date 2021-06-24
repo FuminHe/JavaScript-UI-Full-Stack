@@ -1,15 +1,10 @@
-import './App.css';
-import React, { Component } from 'react';
-import Movies from './components/Movies'
+import React, { Component } from "react";
+import Movies from "./components/Movies";
 
-
-class App extends Component { 
-
+class FluxApp extends Component {
   render() {
-    return (
-      <Movies />
-    )
+    return <Movies />;
   }
 }
 
-export default App;
+export default FluxApp;
