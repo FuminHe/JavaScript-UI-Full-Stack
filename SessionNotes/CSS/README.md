@@ -632,8 +632,14 @@ This is basically a hybrid between relative and fixed position, which allows a p
 }
 ```
 
-- media-type: screen, all
-- media-feature-rule: max-/min-width
+- media-type:
+  - all: Default. Used for all media type devices
+  - print: Used for printers
+  - screen: Used for computer screens, tablets, smart-phones etc.
+  - speech: Used for screenreaders that "reads" the page out loud
+- media-feature-rule:
+  - max-/min-width
+  - orientation: landscape/portrait(default)
 
 ```css
 div {
