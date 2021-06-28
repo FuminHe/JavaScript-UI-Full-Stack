@@ -647,3 +647,56 @@ div {
   }
 }
 ```
+
+# Best Practices for CSS
+
+Some best practices for writing your CSS to make it easily maintainable, and some of the solutions you will find in use by others to help improve maintainability.
+
+## Tips to keep your CSS tidy
+
+1. Follow the coding style guide for an existing project.
+
+   The team style guide should always win over your own personal preferences. There often isn't a right or wrong way to do things, but **consistency is important**.
+
+2. Keep it consistent.
+
+   Consistency of coding style:
+
+   - the same naming conventions for classes,
+   - choosing one method of describing color
+   - or maintaining consistent formatting (for example will you use tabs or spaces to indent your code? If spaces, how many spaces?)
+
+3. Formatting readable CSS.
+
+   Have each property and value pair on a new line to make CSS files more readable.
+
+4. Comment your CSS.
+
+5. Create logical sections in your stylesheet.
+
+   Divide stylesheet into different setions:
+
+   - general styles: `body`, `p`
+   - utility classes
+   - sitewide: basic page layout, logo
+   - pages: broken down by the context, page...
+
+6. Avoid overly-specific selectors
+
+   Avoid things like `article.main p.box{}`. Use a class selector to enable other element re-use this style rule.
+
+7. Break large stylesheets into multiple smaller ones
+
+## Other tools that can help
+
+1. CSS methodologies
+
+   - [OOCSS](https://github.com/stubbornella/oocss/wiki) (Object Oriented CSS): separate your CSS into reusable objects.
+
+   - BEM (Block Element Modifier): naming principle. class name `btn--big` for parent, class name `btn__text` for children.
+
+2. pre-processor and post-processor
+
+   A **pre-processor** runs over your raw files and turns them into a stylesheet, whereas a **post-processor** takes your finished stylesheet and does something to it — perhaps to optimize it in order that it will load faster.
+
+   - pre-processor: Sass

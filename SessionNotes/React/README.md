@@ -2,13 +2,17 @@
 
 ## Virtual DOM
 
-The virtual DOM a programming concept, is a virtual representation of the real DOM.
+### What is virtual DOM?
 
-Everytime the state of our application changes, it will create a new virtual DOM.
+The Virtual DOM is an in-memory representation of Real DOM. The representation of a UI is kept in memory and synced with the "real" DOM. It's a step that happens between the render function being called and the displaying of elements on the screen. This entire process is called reconciliation.
 
-React will compare the difference between the previous virtual DOM and this new virtual DOM tree.
+### How it works?
 
-Once React knows which virtual DOM objects have changed, then React updates only those objects, in the real DOM.
+## JSX
+
+JSX is a XML-like syntax extension to ECMAScript (the acronym stands for JavaScript XML). Basically it just provides syntactic sugar for the `React.createElement()` function, giving us expressiveness of JavaScript along with HTML like template syntax.
+
+Can't processed in Browser directly. Hence there is a need to convert this JSX into something which the browser can understand using **Bable**. And Babel will already be there for us in our app automatically.
 
 ## Immutability
 
@@ -18,47 +22,11 @@ With our knowledge so far, **the only way to update the UI is to create a new el
 
 ## Functional component
 
-**Always the best choice => smaller & faster and use hooks**
-
-```jsx
-import React from "react";
-
-function functionalComponent() {
-  return <>functionalComponent</>;
-}
-
-export default functionalComponent;
-```
+Always the best choice => smaller & faster and use hooks.
 
 ## Class component
 
-**Use constructor.Need to bind in order to use `this` if use narmal function rather than arrow function.**
-
-```jsx
-import React, { Component } from "react";
-
-class EventBind extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-    this.clickHandler = this.clickHandler.bind(this);
-  }
-
-  clickHandler() {
-    this.setState({});
-  }
-
-  // life-cycle
-  componentDidMount() {}
-  componentWillUnmount() {}
-  componentDidUpdate() {}
-  render() {
-    return <></>;
-  }
-}
-export default EventBind;
-```
+Use constructor. Need to bind in order to use `this` if use narmal function rather than arrow function.
 
 - Why we need to `super(props)` in the beginning?
 
@@ -108,24 +76,59 @@ This is commonly called a **"top-down" or "unidirectional" data flow**. Any stat
 
 ![One way data flow](img/oneWayDataFlow.png "One way data flow").
 
-## JSX
+## Lifecycle
 
-Can't processed in Browser directly. Hence there is a need to convert this JSX into something which the browser can understand using **Bable**. And Babel will already be there for us in our app automatically.
+Mounting, Updating, Unmounting, Error Handling
 
-## Conditional Rendering
+![React Lifecycle](img/reactLifecycle.png)
 
-Use `if` statement, conditional operator (`expression ? true:false`) or `{true && JSX_expression}`
+### Mounting
 
-## Error Boundaries
+When an instance of a component is being created and inserted into the DOM.
 
-A JavaScript error in a part of the UI shouldn’t break the whole app. To solve this problem for React users, React 16 introduces a new concept of an **error boundary**.
+1. **`constructor()`**
 
-**Error boundaries** are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed.
+   called before it is mounted
 
-**Error boundaries** catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
+2. `static getDerivedStateFromProps()`
+3. **`render()`**
+4. **`componentDidMount()`**
 
-- `getDerivedStateFromError()`: render a fallback UI after an error has been thrown.
-- `componentDidCatch()`: log error information.
+### Updating
+
+An update can be caused by changes to props or state.
+
+1. `static getDerivedStateFromProps()`
+2. `shouldComponentUpdate()`
+3. **`render()`**
+4. `getSnapshotBeforeUpdate()`
+5. **`componentDidUpdate()`**
+
+### Unmounting
+
+When a component is being removed from the DOM.
+
+1. **`componentWillUnmount()`**
+
+   Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests, or cleaning up any subscriptions that were created in `componentDidMount()`.
+
+   You should **not call `setState()`** in componentWillUnmount() because the component will never be re-rendered.
+
+### Error Handling
+
+Also called **Error Boundaries**
+
+These methods are called when there is an error during rendering, in a lifecycle method, or in the constructor of any child component.
+
+Only use error boundaries for recovering from unexpected exceptions; **don’t try to use them for control flow.**
+
+1. `static getDerivedStateFromError()`
+
+   Render a fallback UI after an error has been thrown.
+
+2. `componentDidCatch()`
+
+   Log error information.
 
 ```js
 export class ErrorBoundary extends React.Component {
@@ -162,6 +165,180 @@ export class ErrorBoundary extends React.Component {
 </ErrorBoundary>
 ```
 
+## SyntheticEvent
+
+`SyntheticEvent` is a cross-browser wrapper around the browser's native event. It's API is same as the browser's native event, including `stopPropagation()` and `preventDefault()`, except the events work identically across all browsers.
+
+## Conditional Rendering
+
+In React, you can create distinct components that encapsulate behavior you need. Then, you can render only some of them, depending on the state of your application.
+
+Use `if` statement, conditional operator (`expression ? true:false`) or `{true && JSX_expression}`
+
+## Controlled vs. Uncontrolled Components
+
+### Controlled Components
+
+React component that renders a form also controls what happens in that form on subsequent user input. An input form element whose value is controlled by React in this way is called a **controlled component**.
+
+React state is the"single source of truth".
+
+### Uncontrolled Components
+
+The source of truth in the DOM.
+
+The **Uncontrolled Components** are the ones that store their own state internally, and you query the DOM using a `ref` to find its current value when you need it. This is a bit more like traditional HTML.
+
+## Composition vs. Inheritance
+
+Recommend using composition instead of inheritance to **reuse code** between components.
+
+## [Accessibility](https://reactjs.org/docs/accessibility.html)
+
+- WCAG (Web Content Accessibility Guidelines)
+- `aria-*`
+
+  Accessible Rich Internet Applications (ARIA) is a set of attributes that define ways to make web content and web applications (especially those developed with JavaScript) more accessible to people with disabilities.
+
+- Semantic HTML
+
+- Labeling: Always add labels to `<input>` to provide descriptive labels that are also exposed to screen readers.
+
+- Notifying the user of errors.
+
+- Focus Control: Ensure that your web application can be fully operated with the keyboard only.
+
+## Code Spliting
+
+Code-Splitting is a feature supported by bundlers like Webpack and Browserify which can create multiple bundles that can be dynamically loaded at runtime. The react project supports code splitting via dynamic import() feature.
+
+Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app. Using tools like **Webpack**, Rollup or **Browserify**.
+
+While you haven’t reduced the overall amount of code in your app, you’ve avoided loading code that the user may never need, and reduced the amount of code needed during the initial load.
+
+- **import()**
+
+```js
+import("./moduleA")
+  .then(({ moduleA }) => {
+    // Use moduleA
+  })
+  .catch((err) => {
+    // Handle failure
+  });
+```
+
+- **React.lazy**
+
+  This will automatically load the bundle containing the OtherComponent when this component is first rendered.
+
+```js
+import React, { Suspense } from "react";
+
+const OtherComponent = React.lazy(() => import("./OtherComponent"));
+
+function MyComponent() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <OtherComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+## Context
+
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+**Context** is designed to share data that can be considered _global_ for a tree of React components, such as the current authenticated user, theme, or preferred language.
+
+- `React.createContext(defaultValue)`
+- `Context.Provider`
+- `Context.Consumer`
+- `Class.contextType`
+
+1. Create Context: When React renders a component that subscribes to this Context object it will read the current context value from the closest matching Provider above it in the tree.
+
+```js
+const SampleContext = React.createContext();
+```
+
+2. Provide value
+
+```js
+// export provider in context
+const SampleProvider = SampleContext.Provider;
+
+// import SampleProvider
+// if we don't have value here, then use the defaultValue in createContext
+<SampleProvider value={}>
+  <>child components</>
+</SampleProvider>;
+```
+
+3. Use value
+
+```js
+// export consumer in context
+const SampleConsumer = SampleContext.Consumer;
+
+// import SampleConsumer
+<SampleConsumer>
+  {
+    ({pro1,pro2}) => ()
+  }
+</SampleConsumer>;
+```
+
+## Ref forwarding
+
+Ref forwarding is a technique for automatically passing a ref through a component to one of its children.
+
+## Fragments
+
+A common pattern in React is for a component to return multiple elements.
+
+- Fragments let you group a list of children without adding extra nodes to the DOM.
+  - A tiny bit faster and has less memory usage.
+  - The DOM inspector is less cluttered.
+- Some CSS mechanisms like Flexbox and CSS Grid have a special parent-child relationship, and adding divs in the middle makes it hard to keep the desired layout while extracting logical components.
+
+> `<React.Fragment></React.Fragment>` or `<></>`
+
+## Higher-Order Components
+
+A higher-order component is a function that takes a component and returns a new component.
+
+## Portals
+
+Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+
+`ReactDOM.createPortal(child, container)`
+
+## Profiler API
+
+The Profiler measures how often a React application renders and what the “cost” of rendering is. Its purpose is to help identify parts of an application that are slow and may benefit from optimizations such as memoization.
+
+## Reconciliation
+
+## Refs and the DOM
+
+Refs provide a way to access DOM nodes or React elements created in the render method.
+
+`React.createRef()`
+
+## Render Props
+
+The term "render prop" refers to a technique for sharing code between React components using a prop whose value is a function.
+
+A component with a `render` prop takes a function that returns a React element and calls it instead of implementing its own render logic.
+
+```jsx
+<DataProvider render={(data) => <h1>Hello {data.target}</h1>} />
+```
+
 ## PureComponent - reduce re-render
 
 `React.PureComponent` implements it with a shallow prop and state comparison(**Shallow Comparison**) => `shouldComponentUpdate()`. If your React component’s `render()` function renders the same result given the same props and state, you can use `React.PureComponent` for a performance boost in some cases.
@@ -177,17 +354,6 @@ export class ErrorBoundary extends React.Component {
 > **shouldComponentUpdate(T/F)** => SC props and states.
 >
 > SC of prevState with currentState => T to re-render.
-
-## Fragments
-
-A common pattern in React is for a component to return multiple elements.
-
-- Fragments let you group a list of children without adding extra nodes to the DOM.
-  - A tiny bit faster and has less memory usage.
-  - The DOM inspector is less cluttered.
-- Some CSS mechanisms like Flexbox and CSS Grid have a special parent-child relationship, and adding divs in the middle makes it hard to keep the desired layout while extracting logical components.
-
-> `<React.Fragment></React.Fragment>` or `<></>`
 
 ## createElement() & cloneElement()
 
@@ -213,43 +379,6 @@ React.cloneElement(element, [props], [...children]);
 > `createElement` is what JSX gets compiled to and is what React uses to create React Elements (object representations of some UI).
 >
 > `cloneElement` is used to clone an element and pass it new props.
-
-## Code Spliting
-
-Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app. Using tools like **Webpack**, Rollup or **Browserify**.
-
-While you haven’t reduced the overall amount of code in your app, you’ve avoided loading code that the user may never need, and reduced the amount of code needed during the initial load.
-
-- **import()**
-
-```js
-import("./moduleA")
-  .then(({ moduleA }) => {
-    // Use moduleA
-  })
-  .catch((err) => {
-    // Handle failure
-  });
-```
-
-- **React.lazy**
-  - `Suspense - fallback`: The lazy component should then be rendered inside a `Suspense` component, which allows us to show some `fallback` content (such as a loading indicator) while we’re waiting for the lazy component to load.
-
-```js
-import React, { Suspense } from "react";
-
-const OtherComponent = React.lazy(() => import("./OtherComponent"));
-
-function MyComponent() {
-  return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <OtherComponent />
-      </Suspense>
-    </div>
-  );
-}
-```
 
 ## Hooks
 
@@ -366,67 +495,34 @@ function TextInputWithFocusButton() {
 
 ### react-router
 
-## Context
-
-Do the same thing that **Flux** and **Redux** do => have a common store to share data.
-
-**Context** is designed to share data that can be considered _global_ for a tree of React components, such as the current authenticated user, theme, or preferred language.
-
-- `React.createContext(defaultValue)`
-- `Context.Provider`
-- `Context.Consumer`
-- `Class.contextType`
-
-1. Create Context: When React renders a component that subscribes to this Context object it will read the current context value from the closest matching Provider above it in the tree.
-
-```js
-const SampleContext = React.createContext();
-```
-
-2. Provide value
-
-```js
-// export provider in context
-const SampleProvider = SampleContext.Provider;
-
-// import SampleProvider
-// if we don't have value here, then use the defaultValue in createContext
-<SampleProvider value={}>
-  <>child components</>
-</SampleProvider>;
-```
-
-3. Use value
-
-```js
-// export consumer in context
-const SampleConsumer = SampleContext.Consumer;
-
-// import SampleConsumer
-<SampleConsumer>
-  {
-    ({pro1,pro2}) => ()
-  }
-</SampleConsumer>;
-```
-
 # React-Redux
 
 Redux is a pattern and library for managing and updating application state, using events called "actions".
 
 It serves as a centralized store for state that needs to be used across your entire application, with rules ensuring that the state can only be updated in a predictable fashion.
 
-## Immutability - State is Read-Only
+## Three Principles
 
-The only way to change the `state` is to `dispatch` an `action`, an object that describes what happened.
+### 1. Single source of truth
+
+The **global state** of your application is stored in an object tree within **a single store**.
+
+- can be serialized and hydrated into the client with no extra coding effort.
+- easier to debug or inspect an application.
+
+### 2. State is read-only(Immutability)
+
+The only way to change the state is to **dispatch** an **action** ( => **reducer**), an object describing what happened.
 
 This way, the UI won't accidentally overwrite data, and it's easier to trace why a state update happened. Since actions are plain JS objects, they can be logged, serialized, stored, and later replayed for debugging or testing purposes.
 
 > In order to update values immutably, your code must make copies of existing objects/arrays, and then modify the copies.
 
-## Reducer - Pure function
+### 3. Changes are made with pure functions (Reducer)
 
-Reducers are pure functions that take the previous state and an action, and return the next state. and they must never contain _"side effects"_.
+**To specify how the state tree is transformed by actions, you write pure reducers.**
+
+Reducers are just pure functions that take the previous state and an action, and **return the next state**. Remember to return new state objects, instead of mutating the previous state. and they must never contain _"side effects"_.
 
 A **"side effect"** is any change to state or behavior that can be seen outside of returning a value from a function.
 
@@ -475,3 +571,9 @@ Saga is easy to scale as compared to redux-thunk.
 # Flux
 
 https://facebook.github.io/flux/docs/in-depth-overview
+
+## Data Flow
+
+![Flux Data Flow](img/fluxDataFlow.png "data flow for flux")
+
+# Redux vs. Flux vs. Context API
