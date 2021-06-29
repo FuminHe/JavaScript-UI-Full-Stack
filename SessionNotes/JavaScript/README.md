@@ -80,3 +80,38 @@ It's used as the key in object, unique and can't show in `for..in..` loop.
 - `Object.keys(obj)` – returns an array of keys.
 - `Object.values(obj)` – returns an array of values.
 - `Object.entries(obj)` – returns an array of [key, value] pairs.
+
+### Destructuring assignment
+
+**Destructuring assignment** is a special syntax that allows us to “unpack” arrays or objects into a bunch of variables.
+
+- Array
+
+  ```js
+  let arr = ["John", "Smith"];
+
+  let [firstName, surname] = arr;
+  ```
+
+- Object
+- Nested
+
+## Advanced working with functions
+
+### Recursion
+
+When a function calls itself, that's called recursion.
+
+```js
+function pow(x, n) {
+  if (n == 1) {
+    return x;
+  } else {
+    return x * pow(x, n - 1);
+  }
+}
+```
+
+- the _base_ of recursion: `if (n == 1) return x`
+- a _recursive step_: `x * pow(x, n - 1)`
+- recursion depth: `n`
