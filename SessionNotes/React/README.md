@@ -6,6 +6,8 @@
 
 The Virtual DOM is an in-memory representation of Real DOM. The representation of a UI is kept in memory and synced with the "real" DOM. It's a step that happens between the render function being called and the displaying of elements on the screen. This entire process is called reconciliation.
 
+The virtual DOM is a concept implemented by libraries in JavaScript on top of browser APIs.
+
 ### How it works?
 
 ## JSX
@@ -488,6 +490,10 @@ function TextInputWithFocusButton() {
 ### useLayoutEffect
 
 ### useDebugValue
+
+## Colocation
+
+In general, it is a good idea to keep files that often change together close to each other. This principle is called “colocation”.
 
 ## Routing
 
