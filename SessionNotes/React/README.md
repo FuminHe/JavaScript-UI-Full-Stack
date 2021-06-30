@@ -526,6 +526,10 @@ In general, it is a good idea to keep files that often change together close to 
 
 ### react-router-dom
 
+- `<Link to="">` vs `<a href="">`
+- `useLocation`
+- `useParams`
+
 ### react-router
 
 # React-Redux
