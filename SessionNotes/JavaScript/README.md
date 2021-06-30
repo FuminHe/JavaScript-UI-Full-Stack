@@ -115,3 +115,68 @@ function pow(x, n) {
 - the _base_ of recursion: `if (n == 1) return x`
 - a _recursive step_: `x * pow(x, n - 1)`
 - recursion depth: `n`
+
+### Spread syntax `...`
+
+```js
+function sumAll(...args) {
+  // args is the name for the array
+  let sum = 0;
+
+  for (let arg of args) sum += arg;
+
+  return sum;
+}
+```
+
+### Closure
+
+A **closure** is a function that remembers its outer variables and can access them.
+
+So all functions are naturally closures in Javascript. Because of the hidden property `[[Environment]]`.
+
+It keeps the reference to the Lexical Environment where the function was created which means all functions could know their outer Lexical Environment reference from their `[[Environment]]` property and have access to the outer variables.
+
+```js
+function sum(a) {
+  return function (b) {
+    return a + b; // takes "a" from the outer lexical environment
+  };
+}
+
+alert(sum(1)(2)); // 3
+alert(sum(5)(-1)); // 4
+```
+
+### `setTimeout`
+
+Any `setTimeout` will run only after the current code has finished.
+
+```js
+let i = 0;
+
+setTimeout(() => alert(i), 100); // 100000000
+
+// assume that the time to execute this function is >100ms
+for (let j = 0; j < 100000000; j++) {
+  i++;
+}
+```
+
+### `.call`, `.apply` and `.bind`
+
+To set `this` context.
+
+- **bind**: returns a function which will act like the original function but with this predefined.
+
+  `let bindPokemon = pokemonName.bind(pokemon); `
+  `bindPokemon("sushi", "js");`
+
+---
+
+**call** and **apply** will call a function immediately letting you specify both the value of this and any arguments the function will receive.
+
+- **call**: `func.call(context, arg1, arg2, ...)`
+- **apply**: `func.apply(context, [arg1, arg2, ...])`
+
+## Object properties configuration
