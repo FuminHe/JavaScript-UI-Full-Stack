@@ -12,9 +12,17 @@ The virtual DOM is a concept implemented by libraries in JavaScript on top of br
 
 ## JSX
 
-JSX is a XML-like syntax extension to ECMAScript (the acronym stands for JavaScript XML). Basically it just provides syntactic sugar for the `React.createElement()` function, giving us expressiveness of JavaScript along with HTML like template syntax.
+JSX is a XML-like syntax extension to ECMAScript (the acronym stands for JavaScript XML).
+
+Basically it just provides syntactic sugar for the `React.createElement()` function, giving us expressiveness of JavaScript along with HTML like template syntax.
 
 Can't processed in Browser directly. Hence there is a need to convert this JSX into something which the browser can understand using **Bable**. And Babel will already be there for us in our app automatically.
+
+> **User-Defined Components Must Be Capitalized**
+>
+> **React treats components starting with lowercase letters as DOM tags.** For example, `<div>` and `<span>` represent an HTML div and span tag. And results in a string `'div'` or `'span'` passed to React.createElement.
+>
+> **Types that start with a capital letter** like `<Foo />` compile to React.createElement(Foo) and **correspond to a component defined or imported in your JavaScript file**.
 
 ## Immutability
 
@@ -37,6 +45,13 @@ Use constructor. Need to bind in order to use `this` if use narmal function rath
 ## State Updates
 
 - Do Not Modify State Directly, use `setState`.
+
+  Because if we use `this.state.xx = xx`, it will modify the value in the same state object and **will not invoke the re-rendering**.
+
+  Because we store the reference not the real value of a object in JS. and it will see that the reference for the state is the same even though the value inside is different.
+
+  But if we use `setState`, it will return a new state object and invoke the re-rendring to update the UIs.
+
 - State Updates May Be Asynchronous.
 
   `setState()` does not always immediately update the component. It may batch or defer the update until later. This makes reading this.state right after calling `setState()` a potential pitfall.
@@ -100,11 +115,23 @@ When an instance of a component is being created and inserted into the DOM.
 
 An update can be caused by changes to props or state.
 
-1. `static getDerivedStateFromProps()`
-2. `shouldComponentUpdate()`
+1. `static getDerivedStateFromProps(props, state)`
+
+   `getDerivedStateFromProps` is invoked right before calling the render method
+
+   It enables a component to update its internal state as the result of changes in props.
+
+2. `shouldComponentUpdate(nextProps, nextState)`
 3. **`render()`**
-4. `getSnapshotBeforeUpdate()`
-5. **`componentDidUpdate()`**
+4. `getSnapshotBeforeUpdate(prevProps, prevState)`
+
+   `getSnapshotBeforeUpdate()` is invoked right before the most recently rendered output is committed to e.g. the DOM.
+
+   It enables your component to capture some information from the DOM (e.g. scroll position) before it is potentially changed.
+
+   Any value returned by this lifecycle method will be passed as a parameter to `componentDidUpdate()`.
+
+5. **`componentDidUpdate(prevProps, prevState, snapshot)`**
 
 ### Unmounting
 

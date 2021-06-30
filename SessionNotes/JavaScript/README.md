@@ -180,3 +180,49 @@ To set `this` context.
 - **apply**: `func.apply(context, [arg1, arg2, ...])`
 
 ## Object properties configuration
+
+### Property flags and descriptors
+
+- `writable`
+- `enumerable`
+- `configurable`
+
+---
+
+- `Object.getOwnPropertyDescriptor(obj, propertyName)`
+- `Object.defineProperty(obj, propertyName, descriptor)`
+
+### Property getters and setters
+
+```js
+let user = {
+  name: "John",
+  surname: "Smith",
+
+  get fullName() {
+    return `${this.name} ${this.surname}`;
+  },
+
+  set fullName(value) {
+    [this.name, this.surname] = value.split(" ");
+  },
+};
+
+// set fullName is executed with the given value.
+user.fullName = "Alice Cooper";
+
+alert(user.name); // Alice
+alert(user.surname); // Cooper
+```
+
+## Prototypes, Inheritance
+
+### Prototypal inheritance
+
+We'd like to reuse what we have in an exist object, not copy/reimplement its methods, just build a new object on top of it. **Prototypal inheritance** is a language feature that helps in that.
+
+- `[[Prototype]]`
+
+  In JavaScript, objects have a special hidden property `[[Prototype]]`, that is either null or references another object. That object is called _"a prototype"_.
+
+  When we read a property from `object`, and it’s missing, JavaScript automatically takes it from the prototype. In programming, this is called _"prototypal inheritance"_.
