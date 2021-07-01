@@ -527,10 +527,41 @@ In general, it is a good idea to keep files that often change together close to 
 ### react-router-dom
 
 - `<Link to="">` vs `<a href="">`
-- `useLocation`
-- `useParams`
+- `<Switch>`
+
+  Renders the first child `<Route>` or `<Redirect>` that matches the location.
+
+  How is this different than just using a bunch of `<Route>`s?
+
+  `<Switch>` is unique in that it renders a route _exclusively_(will only render the exact/first match). In contrast, every `<Route>` that matches the location renders _inclusively_(all will be rendered).
+
+- `match.params.xx`: `useParams`
+- Make `lastname` optional:
+
+```js
+<Route exact path="/users/:firstname/:lastname?" component={Users} />
+```
 
 ### react-router
+
+Hooks, core packages for `react-router-dom`
+
+- `useLocation`: get things inside to in `<Link>`
+
+  The `useLocation` hook returns the location object that represents the current URL.
+
+- `useParams`: get parameters from path.
+
+  `useParams` returns an object of key/value pairs of URL parameters. Use it to access match.params of the current <Route>.
+
+- `useHistory`
+
+  The `useHistory` hook gives you access to the history instance that you may use to navigate.
+
+  - `go`: `history.go(-2)` two steps back.
+  - `goBack`: go back to the last path you just visited
+  - `goForward`
+  - `push`: go to a new path.
 
 # React-Redux
 

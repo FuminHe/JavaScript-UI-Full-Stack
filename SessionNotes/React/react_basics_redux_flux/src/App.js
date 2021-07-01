@@ -1,4 +1,4 @@
-// import "./App.css";
+import "./App.css";
 // // import MainContextDemo from "./components/context/main";
 // // import UseContext from "./components/hooks/useContext";
 // // import ReduxThunkStore from "./components/Redux_Thunk/reactComponent/index";
@@ -20,12 +20,14 @@
 // export default App;
 
 //----------------------------------------------------
-import Routing from "./components/routing/react_router_dom/index";
+// import Routing from "./components/routing/react_router_dom/index";
+import HooksRouting from "./components/routing/react_hook_router";
 
 function App() {
   return (
     <div className="App">
-      <Routing />
+      {/* <Routing /> */}
+      <HooksRouting />
     </div>
   );
 }
