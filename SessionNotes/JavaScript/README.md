@@ -215,7 +215,7 @@ alert(user.name); // Alice
 alert(user.surname); // Cooper
 ```
 
-## Prototypes, Inheritance
+## Prototypes, Inheritance ?? 没看完
 
 ### Prototypal inheritance
 
@@ -226,3 +226,25 @@ We'd like to reuse what we have in an exist object, not copy/reimplement its met
   In JavaScript, objects have a special hidden property `[[Prototype]]`, that is either null or references another object. That object is called _"a prototype"_.
 
   When we read a property from `object`, and it’s missing, JavaScript automatically takes it from the prototype. In programming, this is called _"prototypal inheritance"_.
+
+  > We can use `obj.__proto__ = parentObject`.
+
+- `F.prototype`
+
+  ```js
+  let animal = {
+    eats: true,
+  };
+
+  function Rabbit(name) {
+    this.name = name;
+  }
+
+  Rabbit.prototype = animal;
+
+  let rabbit = new Rabbit("White Rabbit"); //  rabbit.__proto__ == animal
+
+  alert(rabbit.eats); // true
+  ```
+
+## Classes

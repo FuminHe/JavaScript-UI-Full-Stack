@@ -607,9 +607,9 @@ use `cluster.fork()`
 
 > I feel like all the functions inside router.HttpMethod() or app.use() are all middlewares. Like the `(req, res) => {res.json({});}` above after `authenticateToken` is also a middleware.
 
-## REPL - Run, Eval, Print, Loop
+## REPL - Read, Eval, Print, Loop
 
-REPL will accept individual lines of user input, evaluate those according to a user-defined evaluation function, then output the result.
+REPL also known as **Read Evaluate Print Loop** is a programming language environment (basically a console window) that takes single expression as user input and returns the result back to the console after execution.
 
 > It is similar to open a console in Chrome, and do things like `1 + 1`, `Math.random()`. And it will give the result `2` and `0.328768439`.
 
