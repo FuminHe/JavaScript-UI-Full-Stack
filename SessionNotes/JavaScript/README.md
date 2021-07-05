@@ -248,3 +248,167 @@ We'd like to reuse what we have in an exist object, not copy/reimplement its met
   ```
 
 ## Classes
+
+## Promises, async/await
+
+### "error-first callback"
+
+```js
+function loadScript(src, callback) {
+  let script = document.createElement("script");
+  script.src = src;
+
+  script.onload = () => callback(null, script);
+  script.onerror = () => callback(new Error(`Script load error for ${src}`));
+
+  document.head.append(script);
+}
+
+loadScript("/my/script.js", function (error, script) {
+  if (error) {
+    // handle error
+  } else {
+    // script loaded successfully
+  }
+});
+```
+
+### "callback hell" or "pyramid of doom"
+
+callback nested in callback.
+
+**Solution**:
+
+1. Make every action a standalone function.
+
+```js
+loadScript('1.js', step1);
+
+function step1(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('2.js', step2);
+  }
+}
+
+function step2(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('3.js', step3);
+  }
+}
+
+...
+}
+```
+
+### 2. Promise
+
+- Promise: state => pending/settled(fullfilled/rejected)
+
+  ```js
+  let promise = new Promise(function (resolve, reject) {
+    // excute functions which will take time
+    resolve(result);
+    // or
+    reject(new Error("Whoops!"));
+  });
+
+  promise.then();
+  promise.then();
+  promise.catch();
+  ```
+
+  - `resolve`/`reject` => will only take first one and ignor code below them.
+
+  - `.then()` => triggered when state to be fullfilled
+
+    could use `.then()` to modify result many times
+    give us better code flow and flexibility.
+
+  - `.finally()` => will excute anyway. doesn't need result of resolve or reject, will pass them into next then or catch
+
+  - `.catch()` => triggered when state to be rejected.
+
+    We should place `.catch` exactly in places where we want to handle errors and know how to handle them. The handler should analyze errors (custom error classes help) and **rethrow** unknown ones (maybe they are programming mistakes).
+
+- Promise chaining
+  ```js
+  loadScript("one.js")
+    .then((script) => loadScript("two.js"))
+    .then((script) => loadScript("three.js"))
+    .then((script) => {
+      // scripts are loaded, we can use functions declared there
+      one();
+      two();
+      three();
+    })
+    .catch((error) => alert(error.message));
+  ```
+- Promise API
+
+  - Promise.all
+
+    `let promise = Promise.all([promise1,promise2,...]);`
+
+    Let promises to execute in _parallel_ and wait until all of them are ready.
+
+    Takes an array of promises and returns a new promise.**The order** of the resulting array members **is the same as in its source promises**. Even though the first promise takes the longest time to resolve, it’s still first in the array of results.
+
+    If any of the promises is rejected, the promise returned by `Promise.all` **immediately rejects** with that error.
+
+  - Promise.allSettled
+
+    `Promise.allSettled` just waits for all promises to settle, regardless of the result.
+
+    ```js
+    Promise.allSettled(urls.map((url) => fetch(url))).then((results) => {
+      // (*)
+      results.forEach((result, num) => {
+        if (result.status == "fulfilled") {
+          alert(`${urls[num]}: ${result.value.status}`);
+        }
+        if (result.status == "rejected") {
+          alert(`${urls[num]}: ${result.reason}`);
+        }
+      });
+    });
+    ```
+
+  - Promise.race
+
+    `let promise = Promise.race(iterable)`
+
+    Return the first(**fastest**) settled promise and gets its result (or error).
+
+    All further results/errors are ignored.
+
+  - Promise.any
+
+    Return only for the **first fulfilled** promise and gets its result.
+
+  - Promise.resolve/reject
+
+    `Promise.resolve(value)` is the same as use `resolve` in `new Promise(()=>{})`
+
+    `Promise.reject(error)`
+
+- promisify(func)
+
+### 3. Async/await
+
+```js
+async function f() {
+  try {
+    let result = await fetch(url);
+  } catch (err) {
+    console.log(err);
+  }
+}
+```
+
+## Generators, advanced iteration
