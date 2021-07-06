@@ -64,10 +64,10 @@ This is used to make a particular property and value the most specific thing, th
 
 ## Combinator selectors
 
-- `div p`: Selects all <p> elements **inside** <div> elements.
-- `div > p`: Selects all <p> elements where **the parent** is a <div> element.
-- `div + p`: Selects the first <p> element that are placed **immediately after** <div> elements.
-- `div ~ p`: Selects every <p> element that **are preceded by** a <div> element.
+- `div p`: Selects all `<p>` elements **inside** `<div>` elements.
+- `div > p`: Selects all `<p>` elements where **the parent** is a `<div>` element.
+- `div + p`: Selects the first `<p>` element that are placed **immediately after** `<div>` elements.
+- `div ~ p`: Selects every `<p>` element that **are preceded by** a `<div>` element.
 
   > all p tags which have a div tag **before them** (P tags can't inside div). No mater if there are any other tags between them.
 

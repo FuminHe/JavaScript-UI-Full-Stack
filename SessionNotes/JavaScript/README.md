@@ -412,3 +412,124 @@ async function f() {
 ```
 
 ## Generators, advanced iteration
+
+### Generators
+
+Generators can return (“yield”) multiple values, one after another, on-demand. They work great with iterables, allowing to create data streams with ease.
+
+```js
+function* generateSequence() {
+  yield 1;
+  yield 2;
+  return 3;
+}
+
+let generator = generateSequence();
+
+let one = generator.next();
+
+alert(JSON.stringify(one));
+// {value: 1, done: false}
+alert(JSON.stringify(generator.next()));
+// {value: 2, done: false}
+alert(JSON.stringify(generator.next()));
+// {value: 3, done: true}
+```
+
+## Modules
+
+- AMD – one of the most ancient module systems, initially implemented by the library require.js.
+- CommonJS – the module system created for Node.js server.
+- UMD – one more module system, suggested as a universal one, compatible with AMD and CommonJS.
+
+### Export & Import
+
+- Named export
+- Default export
+- re-export
+
+  ```js
+  export {default [as y]} from "module"
+  ```
+
+### Dynamic imports
+
+`let obj = await import('./say.js');`
+
+`let {hi, bye} = await import('./say.js');`
+
+## Miscellaneous
+
+### [Proxy and Reflect](https://javascript.info/proxy#summary)
+
+`Proxy` is a wrapper around an object, that forwards operations on it to the object, optionally trapping some of them.
+
+`Reflect` is a built-in object that simplifies creation of Proxy.
+
+### Eval: run a code string
+
+The built-in `eval` function allows to execute a string of code.
+
+```js
+let code = 'alert("Hello")';
+eval(code); // Hello
+```
+
+### Currying
+
+Currying is a transform that makes f(a,b,c) callable as f(a)(b)(c).
+
+```js
+function curry(f) {
+  // curry(f) does the currying transform
+  return function (a) {
+    return function (b) {
+      return f(a, b);
+    };
+  };
+}
+
+// usage
+function sum(a, b) {
+  return a + b;
+}
+
+let curriedSum = curry(sum);
+
+alert(curriedSum(1)(2)); // 3
+```
+
+# Browser: Document, Events, Interfaces
+
+## Document
+
+### Browser environment, specs
+
+!["Here’s a bird's-eye view of what we have when JavaScript runs in a web browser"](./img/browserStructure.png)
+
+- There's a "root" object called `window`.
+- DOM (Document Object Model)
+
+  DOM represents all page content as objects that can be modified.
+
+- BOM (Browser Object Model)
+
+  BOM represents additional objects provided by the browser (host environment) for working with everything except the document.
+
+### DOM tree
+
+Every HTML tag is an object. Nested tags are “children” of the enclosing one. The text inside a tag is an object as well.
+
+**Everything in HTML, even comments, becomes a part of the DOM.**
+
+All operations on the DOM start with the `document` object. That's the main "entry point" to DOM.
+
+- For all nodes
+
+  `parentNode`, `childNodes`, `firstChild`, `lastChild`, `previousSibling`, `nextSibling`.
+
+- For element nodes only
+
+  `parentElement`, `children`, `firstElementChild`, `lastElementChild`, `previousElementSibling`, `nextElementSibling`.
+
+-
