@@ -532,4 +532,42 @@ All operations on the DOM start with the `document` object. That's the main "ent
 
   `parentElement`, `children`, `firstElementChild`, `lastElementChild`, `previousElementSibling`, `nextElementSibling`.
 
--
+- Search for nodes in DOM
+
+  ![Search for nodes in DOM](./img/methodToSearchDOM.png)
+
+- `elem.matches(CSS-selector)`
+
+  check if `elem` matches the given CSS selector.
+
+- `elem.closest(CSS-selector)`
+
+  look for the nearest ancestor that matches the given CSS-selector. The `elem` itself is also checked.
+
+- `elemA.contains(elemB)`
+
+  returns true if `elemB` is inside `elemA` (a descendant of `elemA`) or when `elemA == elemB`.
+
+### Modifying the document
+
+- `document.createElement(tag)`
+
+  ```js
+  // 1. Create <div> element
+  let div = document.createElement("div");
+
+  // 2. Set its class to "alert"
+  div.className = "alert";
+
+  // 3. Fill it with the content
+  div.innerHTML =
+    "<strong>Hi there!</strong> You've read an important message.";
+  ```
+
+- Insertion and removal:
+
+`.append()`, `.prepend()`, `.before()`, `.after()`, `.replaceWith()`, `.remove()`
+
+![Insertion](./img/insertMethod.png)
+
+### Element size and scrolling
