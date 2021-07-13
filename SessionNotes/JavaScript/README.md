@@ -571,3 +571,116 @@ All operations on the DOM start with the `document` object. That's the main "ent
 ![Insertion](./img/insertMethod.png)
 
 ### Element size and scrolling
+
+https://javascript.info/size-and-scroll#summary
+
+### Window sizes and scrolling
+
+- Read the current scroll: `window.pageYOffset/pageXOffset`.
+
+- Change the current scroll:
+
+  - `window.scrollTo(pageX,pageY)` – absolute coordinates,
+  - `window.scrollBy(x,y)` – scroll relative the current place,
+  - `elem.scrollIntoView(top)` – scroll to make elem visible (align with the top/bottom of the window).
+
+## Introduction to Events
+
+### `addEventListener`
+
+`element.addEventListener(event, handler, [options])`
+
+- `event`: Event name, e.g. "click".
+- `handler`: The handler function.
+- `options`:
+  - `once`: if true, then the listener is automatically removed after it triggers.
+  - `capture`: the phase where to handle the event, to be covered later in the chapter Bubbling and capturing. For historical reasons, options can also be false/true, that’s the same as {capture: false/true}.
+  - `passive`: if true, then the handler will not call `preventDefault()`
+
+### Bubbling and capturing
+
+1. Bubbling: inner => outer
+
+   When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
+
+   ```html
+   <!-- If you click <p> -->
+   <!-- it will show: p->div->form -->
+   <form onclick="alert('form')">
+     FORM
+     <div onclick="alert('div')">
+       DIV
+       <p onclick="alert('p')">P</p>
+     </div>
+   </form>
+   ```
+
+   > **Stopping bubbling**
+   >
+   > use `event.stopPropagation()` in the inner element.
+
+2. Capturing: outer => inner
+
+   ```html
+   <form>
+     FORM
+     <div>
+       DIV
+       <p>P</p>
+     </div>
+   </form>
+
+   <!-- HTML → BODY → FORM → DIV -> P -->
+   <script>
+     for (let elem of document.querySelectorAll("*")) {
+       elem.addEventListener(
+         "click",
+         (e) => alert(`Capturing: ${elem.tagName}`),
+         true
+       );
+   </script>
+   ```
+
+   > `elem.addEventListener(..., {capture: true})`
+   >
+   > `{capture: true}`: the handler is set on the capturing phase. => enable the capturing.
+   >
+   > `{capture: false}`: the handler is set on the bubbling phase.=> diable the capturing.
+
+### Event delegation
+
+The idea is that if we have a lot of elements handled in a similar way, then instead of assigning a handler to each of them – we put a single handler on their common ancestor.
+
+The algorithm:
+
+- Put a single handler on the container.
+- In the handler – check the source element event.target.
+- If the event happened inside an element that interests us, then handle the event.
+
+### [Browser default actions](https://javascript.info/default-browser-action)
+
+There are two ways to tell the browser we don’t want it to act:
+
+- The main way is to use the event object. There’s a method `event.preventDefault()`.
+- If the handler is assigned using on<event> (not by addEventListener), then returning false also works the same.
+
+### Dispatching custom events
+
+## UI Events
+
+### Moving the mouse
+
+- `mousemove`/`mouseout`: will be triggered when move from parent to child, enable Bubbling.
+- `mouseenter`/`mouseleave`: only triggered when enter the parent, don't care if you have enterned child or not, doesn't allow bubbing.
+
+## Document and resource loading
+
+The lifecycle of an HTML page has three important events:
+
+- `DOMContentLoaded` – the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures <img> and stylesheets may not yet have loaded.
+- `load` – not only HTML is loaded, but also all the external resources: images, styles etc.
+- `beforeunload`/`unload` – the user is leaving the page.
+
+# Storing data in the browser
+
+## Cookies
