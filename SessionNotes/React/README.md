@@ -651,3 +651,13 @@ https://facebook.github.io/flux/docs/in-depth-overview
 - **Flux**: multi-stores, great for smaller applications where you don’t need to pass props very much.
 - **Redux**: one store, for larger scale applications that have multiple pieces of state that need to be kept track of.
 - **Context**: has a global context object that is available to all of our components that’s passed to a provider as props.
+
+# Client side rendering vs. Server side rendering
+
+### CSR and SSR
+
+![Client Side Rendering and Server Side Rendering](./img/csr_ssr.png)
+
+### CSR VS. SSR
+
+![Client Side Rendering vs. Server Side Rendering](./img/ssr_csr_conclusions.png)
