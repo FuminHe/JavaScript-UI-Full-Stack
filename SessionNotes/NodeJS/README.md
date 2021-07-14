@@ -487,12 +487,16 @@ The `process` object is an instance of `EventEmitter`.
   });
   ```
 
-- `process.nextTick(callback[, ...args])` VS. `setImmediate()`
+- [`process.nextTick(callback[, ...args])` VS. `setImmediate()`](https://stackoverflow.com/questions/15349733/setimmediate-vs-nexttick)
 
   - `process.nextTick()` fires immediately on the same phase
   - `setImmediate()` fires on the following iteration or 'tick' of the event loop
 
-  > `process.nextTick()` fires more immediately than `setImmediate()`
+  > `process.nextTick()` fires more immediately than `setImmediate()`.
+  >
+  > A function passed to `process.nextTick()` is going to be executed on the current iteration of the event loop, **after the current operation ends**.
+  >
+  > `setImmediate` will be checked after setTimeout/pendingOS/pendingOperations.
 
 - Signal events:
 
