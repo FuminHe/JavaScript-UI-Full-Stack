@@ -706,3 +706,13 @@ Some best practices for writing your CSS to make it easily maintainable, and som
    A **pre-processor** runs over your raw files and turns them into a stylesheet, whereas a **post-processor** takes your finished stylesheet and does something to it — perhaps to optimize it in order that it will load faster.
 
    - pre-processor: Sass
+
+# `translate`
+
+`transform: translate(30%, 200px)`
+
+![translate](./img/translate.png)
+
+# `transform`
+
+`transform` lets you rotate, scale, skew, or translate an element. It modifies the coordinate space of the CSS visual formatting model.
