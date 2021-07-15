@@ -500,11 +500,17 @@ The `process` object is an instance of `EventEmitter`.
 
 - Signal events:
 
-  **'SIGTERM'** and **'SIGINT'** have default handlers on non-Windows platforms that reset the terminal mode before exiting with code 128 + signal number. If one of these signals has a listener installed, its default behavior will be removed (Node.js will no longer exit).
+  ```js
+  process.on("SIGTERM", () => {
+    server.close(() => {
+      console.log("Process terminated");
+    });
+  });
+  ```
 
-  **'SIGTERM'** is not supported on Windows, it can be listened on.
+  **`SIGKILL`** is the signal that tells a process to immediately terminate, and would ideally act like `process.exit()`.
 
-  **'SIGINT'** from the terminal is supported on all platforms, and can usually be generated with `Ctrl+C` (though this may be configurable). It is not generated when terminal raw mode is enabled and `Ctrl+C` is used.
+  **`SIGTERM`** is the signal that tells a process to gracefully terminate. It is the signal that's sent from process managers like `upstart` or `supervisord` and many others.
 
 ### Child Process
 
@@ -554,19 +560,19 @@ There are 4 different ways to create a child process in Node: `spawn()`, `fork()
 
 - `fork()`
 
-```js
-const { fork } = require("child_process");
+  ```js
+  const { fork } = require("child_process");
 
-const forked = fork("child.js");
+  const forked = fork("child.js");
 
-// get msg from child
-forked.on("message", (msg) => {
-  console.log("Message from child", msg);
-});
+  // get msg from child
+  forked.on("message", (msg) => {
+    console.log("Message from child", msg);
+  });
 
-// send msg to child
-forked.send({ hello: "world" });
-```
+  // send msg to child
+  forked.send({ hello: "world" });
+  ```
 
 ### Cluster
 
