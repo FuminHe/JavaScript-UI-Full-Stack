@@ -506,6 +506,9 @@ The `process` object is an instance of `EventEmitter`.
       console.log("Process terminated");
     });
   });
+
+  <!-- or -->
+  process.kill(process.pid, 'SIGTERM')
   ```
 
   **`SIGKILL`** is the signal that tells a process to immediately terminate, and would ideally act like `process.exit()`.
