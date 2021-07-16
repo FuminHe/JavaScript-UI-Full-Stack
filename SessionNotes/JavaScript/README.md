@@ -398,6 +398,10 @@ function step2(error, script) {
     `Promise.reject(error)`
 
 - promisify(func)
+  ```js
+  const util = require("util");
+  var read = util.promisify(fs.readFile);
+  ```
 
 ### 3. Async/await
 
