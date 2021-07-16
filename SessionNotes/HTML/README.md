@@ -132,3 +132,36 @@ A web worker is a JavaScript that runs in the background, independently of other
 - Create Good Link Text: A link text should explain clearly what information the reader will get by clicking on that link.
 
 - The `title` Attribute: specifies extra information about an element.
+
+# [HTML Multimedia](https://www.w3schools.com/tags/ref_av_dom.asp)
+
+## HTML Video
+
+```html
+<video width="320" height="240" autoplay muted controls id="video1">
+  <source src="movie.mp4" type="video/mp4" />
+  <source src="movie.ogg" type="video/ogg" />
+  Your browser does not support the video tag.
+</video>
+
+<!-- -- -->
+<script>
+  const video = document.getElementById("video1");
+
+  // play video
+  video.play();
+
+  // pause video
+  video.pause();
+</script>
+```
+
+## HTML Audio
+
+```html
+<audio controls autoplay muted src="ddd.mp3">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- also has play and pause -->
+```
