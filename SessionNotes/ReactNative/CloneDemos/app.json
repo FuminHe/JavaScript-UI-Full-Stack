@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CloneDemo",
-    "slug": "CloneDemo",
+    "name": "CloneDemos",
+    "slug": "CloneDemos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
