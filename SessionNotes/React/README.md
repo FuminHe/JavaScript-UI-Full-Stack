@@ -569,6 +569,10 @@ Redux is a pattern and library for managing and updating application state, usin
 
 It serves as a centralized store for state that needs to be used across your entire application, with rules ensuring that the state can only be updated in a predictable fashion.
 
+- **Actions** are plain JavaScript objects that have a type field. As mentioned earlier, you can think of an action as an event that describes something that happened in the application.
+
+- **Reducers** are functions that take the current state and an action as arguments, and return a new state result. In other words, (state, action) => newState.
+
 ## Three Principles
 
 ### 1. Single source of truth
