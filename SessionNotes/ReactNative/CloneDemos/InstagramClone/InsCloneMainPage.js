@@ -8,6 +8,7 @@ import store from "./redux/store";
 import LandingScreen from "./auth/Landing";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
+import Main from "./component/Main";
 
 const firebaseConfig = {
   apiKey: "AIzaSyArY9ipJUHMwh9Cm3J6PLQn5QHf-PnzBpI",
@@ -72,8 +73,8 @@ export default function InsCloneMainPage() {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: "center" }}>
-      <Text>User is Logged in</Text>
-    </View>
+    <Provider store={store}>
+      <Main />
+    </Provider>
   );
 }
