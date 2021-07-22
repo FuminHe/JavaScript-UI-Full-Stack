@@ -3,6 +3,8 @@ import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import firebase from "firebase/app";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import LandingScreen from "./auth/Landing";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
