@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Button, TextInput, View } from "react-native";
 import firebase from "firebase";
 
 const Register = () => {
@@ -9,7 +9,25 @@ const Register = () => {
     name: "",
   });
 
-  onSignUp = () => {};
+  function onSignUp() {
+    const { email, password, name } = userLogInfo;
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        firebase
+          .firestore()
+          .collection("Users")
+          .doc(firebase.auth().currentUser.uid)
+          .set({
+            name,
+            email,
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <View>
       <TextInput
@@ -26,11 +44,9 @@ const Register = () => {
           setUserLogInfo({ ...userLogInfo, password })
         }
       />
-      <Button onPress={() => this.onSignUp()} title="Sign Up" />
+      <Button onPress={onSignUp} title="Sign Up" />
     </View>
   );
 };
 
 export default Register;
-
-const styles = StyleSheet.create({});

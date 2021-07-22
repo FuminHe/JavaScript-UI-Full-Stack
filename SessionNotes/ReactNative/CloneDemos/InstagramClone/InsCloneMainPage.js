@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import * as firebase from "firebase";
+import firebase from "firebase/app";
 import LandingScreen from "./auth/Landing";
+import Register from "./auth/Register";
+import Login from "./auth/Login";
 
 const firebaseConfig = {
   apiKey: "AIzaSyArY9ipJUHMwh9Cm3J6PLQn5QHf-PnzBpI",
@@ -20,15 +23,55 @@ if (firebase.apps.length === 0) {
 
 const Stack = createStackNavigator();
 export default function InsCloneMainPage() {
+  const [loaded, setLoaded] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        setLoaded(true);
+        setLoggedIn(false);
+      } else {
+        setLoaded(true);
+        setLoggedIn(true);
+      }
+    });
+  }, []);
+
+  if (!loaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <Text>Loading</Text>
+      </View>
+    );
+  }
+
+  if (!loggedIn) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Landing"
+            component={LandingScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Landing"
-          component={LandingScreen}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{ flex: 1, justifyContent: "center" }}>
+      <Text>User is Logged in</Text>
+    </View>
   );
 }
